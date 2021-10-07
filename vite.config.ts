@@ -20,6 +20,7 @@ export default defineConfig({
     Pages(),
     Components({
       resolvers: IconsResolver(),
+      dts: true,
     }),
     Icons(),
     WindiCSS(),

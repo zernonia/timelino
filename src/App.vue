@@ -2,14 +2,15 @@
   <div class="flex flex-col items-center justify-center">
     <nav class="w-full flex items-center justify-between">
       <h1>Timelimo</h1>
-      <button>Add Story</button>
+      <button @click="isOpen = true">Add Story</button>
     </nav>
     <router-view></router-view>
-    <AddStory></AddStory>
+    <AddStory v-if="isOpen" @close="isOpen = false"></AddStory>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue"
 import { Profile } from "./interface"
 import { userState } from "./store"
 import { supabase } from "./supabase"
@@ -22,4 +23,7 @@ const getUserData = async () => {
   }
 }
 getUserData()
+
+// modal
+const isOpen = ref(false)
 </script>
