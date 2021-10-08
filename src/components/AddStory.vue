@@ -1,5 +1,5 @@
 <template>
-  <Modal @close="e('close')">
+  <Modal @close="emit('close')">
     <div class="flex flex-col">
       <header class="flex justify-center">
         <Datepicker
@@ -57,7 +57,7 @@ import { userState } from "@/store"
 const p = defineProps({
   id: String,
 })
-const e = defineEmits(["close"])
+const emit = defineEmits(["close", "success"])
 
 const date = ref(new Date())
 const dataLimit = ref(new Date())
@@ -71,6 +71,7 @@ const submit = async () => {
     story: content.value,
     tagging: tagging.value,
   })
+  if (!error) emit("success")
 }
 </script>
 

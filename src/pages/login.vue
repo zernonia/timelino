@@ -10,8 +10,11 @@
 import { supabase } from "@/supabase"
 
 const loginGoogle = async () => {
-  const { user, session, error } = await supabase.auth.signIn({
-    provider: "google",
-  })
+  const { user, session, error } = await supabase.auth.signIn(
+    {
+      provider: "google",
+    },
+    { redirectTo: window.location.origin + "/redirect" }
+  )
 }
 </script>

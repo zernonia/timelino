@@ -10,13 +10,14 @@ const router = createRouter({
   routes,
 })
 router.beforeEach((to, from, next) => {
-  console.log({ to, from })
-  const access_token = to.hash.split("access_token=")[1]
-  if (access_token) {
-    next({ name: "settings" })
-  } else {
-    next()
-  }
+  // console.log({ to, from })
+  // const access_token = to.hash.split("access_token=")[1]
+  // if (access_token) {
+  //   next({ name: "settings" })
+  // } else {
+  //   next()
+  // }
+  next()
 })
 
 createApp(App).use(router).mount("#app")

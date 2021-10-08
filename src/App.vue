@@ -5,7 +5,7 @@
       <button @click="isOpen = true">Add Story</button>
     </nav>
     <router-view></router-view>
-    <AddStory v-if="isOpen" @close="isOpen = false"></AddStory>
+    <AddStory v-if="isOpen" @close="isOpen = false" @success="triggerFetch"></AddStory>
   </div>
 </template>
 
@@ -26,4 +26,9 @@ getUserData()
 
 // modal
 const isOpen = ref(false)
+
+const triggerFetch = () => {
+  isOpen.value = false
+  console.log("now should trigger refresh")
+}
 </script>

@@ -6,6 +6,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     AddStory: typeof import('C:/Coding/timelino/src/components/AddStory.vue')['default']
     Badge: typeof import('C:/Coding/timelino/src/components/Badge.vue')['default']
+    'IMdi:google': typeof import('~icons/mdi/google')['default']
+    'IMdi:twitter': typeof import('~icons/mdi/twitter')['default']
     Modal: typeof import('C:/Coding/timelino/src/components/Modal.vue')['default']
     TestQuillContent: typeof import('C:/Coding/timelino/src/components/TestQuillContent.vue')['default']
     TestQuillEditor: typeof import('C:/Coding/timelino/src/components/TestQuillEditor.vue')['default']
