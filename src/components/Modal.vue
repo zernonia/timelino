@@ -15,12 +15,7 @@
       "
       @click.self="$emit('close')"
     >
-      <div
-        class="w-full h-min max-w-screen-sm bg-white p-4 rounded-lg shadow-md"
-        style="max-height: calc(100vh - 210px)"
-      >
-        <slot></slot>
-      </div>
+      <slot></slot>
     </div>
   </teleport>
 </template>

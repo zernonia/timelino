@@ -1,8 +1,9 @@
 <template>
-  <div class="flex flex-col w-full max-w-screen-md">
-    <h1>Login</h1>
-    <button>Login with <i-mdi:twitter></i-mdi:twitter></button>
-    <button @click="loginGoogle">Login with <i-mdi:google></i-mdi:google></button>
+  <div class="flex flex-col w-72 items-center mt-20">
+    <h1 class="text-2xl font-bold text-gray-900">Login</h1>
+    <button class="btn mt-4 items-center w-full flex justify-center" @click="loginGoogle">
+      Login with <i-mdi:google class="ml-2"></i-mdi:google>
+    </button>
   </div>
 </template>
 

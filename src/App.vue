@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col items-center justify-center">
-    <nav class="w-full flex items-center justify-between">
-      <h1>Timelimo</h1>
-      <button @click="isOpen = true">Add Story</button>
+    <nav class="px-8 py-4 w-full flex items-center justify-between">
+      <h1 class="text-4xl font-bold text-blue-700">Timelimo</h1>
+      <button class="btn" @click="isOpen = true">Add Story</button>
     </nav>
     <router-view></router-view>
     <ModalStory v-if="isOpen" @close="isOpen = false" @success="triggerFetch"></ModalStory>

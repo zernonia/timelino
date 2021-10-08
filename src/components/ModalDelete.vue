@@ -1,10 +1,10 @@
 <template>
   <Modal @close="emit('close')">
-    <div class="flex flex-col">
+    <div class="flex flex-col bg-white p-4 flex flex-col rounded-lg shadow-md">
       <p>Are you sure to delete?</p>
-      <footer>
-        <button @click="$emit('close')">Cancel</button>
-        <button @click="$emit('success')">Yes, delete</button>
+      <footer class="flex items-center space-x-2">
+        <button class="btn" @click="$emit('close')">Cancel</button>
+        <button class="btn btn-warning" @click="$emit('success')">Yes, delete</button>
       </footer>
     </div>
   </Modal>

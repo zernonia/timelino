@@ -2,9 +2,9 @@
   <div class="w-screen-sm">
     <div v-if="userData">
       <img :src="userData.avatar_url" class="w-32 rounded-full" />
-      <h1>{{ userData.full_name }}</h1>
-      <h1>@{{ userData.username }}</h1>
-      <p>{{ userData.introduction }}</p>
+      <h1 class="mt-2 text-2xl text-gray-900 font-bold">{{ userData.full_name }}</h1>
+      <h2 class="text-gray-400">@{{ userData.username }}</h2>
+      <p class="mt-4">{{ userData.introduction }}</p>
       <ul>
         <li v-for="link in userData.links">
           {{ link }}
@@ -12,10 +12,12 @@
       </ul>
     </div>
 
+    <div class="h-1px w-full bg-gray-200 my-8"></div>
+
     <div class="mt-6">
       <h1>Timeline</h1>
       <div class="relative mt-8">
-        <div class="relative border-l border-gray-300 timeline-track mt-4" v-for="(value, key) in groupUserStory">
+        <div class="relative border-l border-gray-200 timeline-track mt-4" v-for="(value, key) in groupUserStory">
           <div class="absolute top-0 -left-6 transform -translate-x-full text-sm font-semibold text-gray-400">
             {{ dayjs(key).format("MMM DD, YYYY") }}
           </div>
@@ -29,10 +31,10 @@
               <div v-html="item.story"></div>
             </div>
             <div class="helper hidden items-center absolute top-0 right-0">
-              <button @click="buttonEdit(item.id)" class="p-2 inline-flex text-gray-400">
+              <button @click="buttonEdit(item.id)" class="btn-helper">
                 <i-mdi:square-edit-outline></i-mdi:square-edit-outline>
               </button>
-              <button @click="buttonDelete(item.id)" class="p-2 inline-flex text-gray-400">
+              <button @click="buttonDelete(item.id)" class="btn-helper">
                 <i-mdi:trash-can-outline></i-mdi:trash-can-outline>
               </button>
             </div>
