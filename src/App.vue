@@ -5,7 +5,7 @@
       <button @click="isOpen = true">Add Story</button>
     </nav>
     <router-view></router-view>
-    <AddStory v-if="isOpen" @close="isOpen = false" @success="triggerFetch"></AddStory>
+    <ModalStory v-if="isOpen" @close="isOpen = false" @success="triggerFetch"></ModalStory>
   </div>
 </template>
 

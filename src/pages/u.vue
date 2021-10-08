@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h1>Here user page</h1>
+  <div class="mt-16">
     <router-view></router-view>
   </div>
 </template>

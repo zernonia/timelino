@@ -1,3 +1,14 @@
+@import url("https://rsms.me/inter/inter.css");
+:root {
+  font-family: "Inter", sans-serif;
+}
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: "Inter var", sans-serif;
+    font-feature-settings: "case", "cpsp", "salt";
+  }
+}
+
 body {
   @apply relative;
 }
