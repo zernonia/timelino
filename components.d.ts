@@ -6,6 +6,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AddStory: typeof import('C:/Coding/timelino/src/components/AddStory.vue')['default']
     Badge: typeof import('C:/Coding/timelino/src/components/Badge.vue')['default']
+    ColorPicker: typeof import('C:/Coding/timelino/src/components/ColorPicker.vue')['default']
     'IMdi:google': typeof import('~icons/mdi/google')['default']
     'IMdi:minus': typeof import('~icons/mdi/minus')['default']
     'IMdi:plus': typeof import('~icons/mdi/plus')['default']

@@ -22,10 +22,8 @@
             {{ dayjs(key).format("MMM DD, YYYY") }}
           </div>
           <div v-for="item in value" :key="item.id" class="ml-10 mt-4 timeline-content">
-            <div v-for="tag in item.tagging">
-              <h5 class="bg-blue-200 bg-opacity-50 text-blue-700 font-semibold w-max px-3 py-1.5 rounded text-sm">
-                {{ tag }}
-              </h5>
+            <div class="flex items-center space-x-2">
+              <Badge v-for="tag in item.tags" :value="tag.name" :color="tag.color"></Badge>
             </div>
             <div class="mt-2">
               <div v-html="item.story"></div>
@@ -71,9 +69,9 @@ getUserData()
 const userStory = ref<Story[] | null>(null)
 const getUserStory = async () => {
   const { data, error } = await supabase
-    .from("stories")
-    .select("*")
-    .eq("profiles.username", route.params.username)
+    .rpc("get_stories", {
+      user_name: route.params.username,
+    })
     .order("date", { ascending: false })
   console.log({ data, error })
   if (!error) userStory.value = data
