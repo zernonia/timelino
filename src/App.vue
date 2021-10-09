@@ -2,14 +2,14 @@
   <div class="flex flex-col items-center justify-center">
     <nav class="px-8 py-4 w-full flex items-center justify-between">
       <h1 @click="$router.push({ name: 'index' })" class="text-4xl font-bold text-blue-700 cursor-pointer">Timelimo</h1>
-      <div v-if="userState.profiles?.username" class="flex items-center space-x-2">
-        <!-- <button class="text-blue-700 flex p-2"><i-mdi:bell class="w-6 h-6"></i-mdi:bell></button> -->
-        <button class="btn" @click="isOpen = true">Add Story</button>
+      <div v-if="userState.profiles?.username" class="flex items-center space-x-4">
+        <Notification></Notification>
         <img
           @click="$router.push({ name: 'u-username', params: { username: userState.profiles?.username } })"
           class="w-10 h-10 rounded-full cursor-pointer object-cover"
           :src="userState.profiles.avatar_url"
         />
+        <button class="btn" @click="isOpen = true">Add Story</button>
       </div>
       <div v-else>
         <button @click="$router.push({ name: 'login' })" class="btn">Login</button>

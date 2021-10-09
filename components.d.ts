@@ -21,6 +21,7 @@ declare module 'vue' {
     ModalDiscard: typeof import('C:/Coding/timelino/src/components/ModalDiscard.vue')['default']
     ModalStory: typeof import('C:/Coding/timelino/src/components/ModalStory.vue')['default']
     'ModalStory copy': typeof import('C:/Coding/timelino/src/components/ModalStory copy.vue')['default']
+    Notification: typeof import('C:/Coding/timelino/src/components/Notification.vue')['default']
     TestQuillContent: typeof import('C:/Coding/timelino/src/components/TestQuillContent.vue')['default']
     TestQuillEditor: typeof import('C:/Coding/timelino/src/components/TestQuillEditor.vue')['default']
   }
