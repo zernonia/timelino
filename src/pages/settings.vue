@@ -57,6 +57,7 @@ const submit = async () => {
       .upsert({ id: userState.user.id, ...form.value })
       .single()
     if (!error) {
+      userState.profiles = data
       router.push({ name: "u-username", params: { username: data?.username } })
     }
   }

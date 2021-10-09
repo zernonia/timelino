@@ -7,6 +7,8 @@ declare module 'vue' {
     AddStory: typeof import('C:/Coding/timelino/src/components/AddStory.vue')['default']
     Badge: typeof import('C:/Coding/timelino/src/components/Badge.vue')['default']
     ColorPicker: typeof import('C:/Coding/timelino/src/components/ColorPicker.vue')['default']
+    'IMdi:bell': typeof import('~icons/mdi/bell')['default']
+    'IMdi:filterOff': typeof import('~icons/mdi/filter-off')['default']
     'IMdi:google': typeof import('~icons/mdi/google')['default']
     'IMdi:minus': typeof import('~icons/mdi/minus')['default']
     'IMdi:plus': typeof import('~icons/mdi/plus')['default']

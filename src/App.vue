@@ -1,8 +1,19 @@
 <template>
   <div class="flex flex-col items-center justify-center">
     <nav class="px-8 py-4 w-full flex items-center justify-between">
-      <h1 class="text-4xl font-bold text-blue-700">Timelimo</h1>
-      <button class="btn" @click="isOpen = true">Add Story</button>
+      <h1 @click="$router.push({ name: 'index' })" class="text-4xl font-bold text-blue-700 cursor-pointer">Timelimo</h1>
+      <div v-if="userState.profiles?.username" class="flex items-center space-x-2">
+        <!-- <button class="text-blue-700 flex p-2"><i-mdi:bell class="w-6 h-6"></i-mdi:bell></button> -->
+        <button class="btn" @click="isOpen = true">Add Story</button>
+        <img
+          @click="$router.push({ name: 'u-username', params: { username: userState.profiles?.username } })"
+          class="w-10 h-10 rounded-full cursor-pointer object-cover"
+          :src="userState.profiles.avatar_url"
+        />
+      </div>
+      <div v-else>
+        <button @click="$router.push({ name: 'login' })" class="btn">Login</button>
+      </div>
     </nav>
     <router-view></router-view>
     <ModalStory v-if="isOpen" @close="isOpen = false" @success="triggerFetch"></ModalStory>
@@ -14,8 +25,10 @@ import { ref } from "vue"
 import { Profile } from "./interface"
 import { userState } from "./store"
 import { supabase } from "./supabase"
+import { useEventBus } from "@vueuse/core"
 
 userState.user = supabase.auth.user()
+console.log(userState)
 const getUserData = async () => {
   if (userState.user) {
     const { data, error } = await supabase.from<Profile>("profiles").select("*").eq("id", userState.user.id).single()
@@ -26,9 +39,10 @@ getUserData()
 
 // modal
 const isOpen = ref(false)
+const bus = useEventBus<string>("add-story")
 
 const triggerFetch = () => {
   isOpen.value = false
-  console.log("now should trigger refresh")
+  bus.emit("done")
 }
 </script>
