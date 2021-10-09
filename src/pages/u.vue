@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-16">
+  <div class="my-16">
     <router-view :key="$route.params.username"></router-view>
   </div>
 </template>

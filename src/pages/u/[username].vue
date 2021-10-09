@@ -7,7 +7,7 @@
           <button @click="$router.push({ name: 'settings' })" class="btn btn-white">Settings</button>
         </div>
         <div v-else>
-          <button v-if="!isFollow" @click="followUser" class="btn btn-white">Follow</button>
+          <button v-if="!isFollowing" @click="followUser" class="btn btn-white">Follow</button>
           <button v-else @click="unfollowUser" class="btn btn-white">Following</button>
         </div>
       </div>
@@ -40,7 +40,7 @@
             {{ dayjs(key).format("MMM DD, YYYY") }}
           </div>
           <div v-for="item in value" :key="item.id" class="ml-10 mt-4 timeline-content">
-            <div class="flex items-center space-x-2">
+            <div v-if="item.tags[0] != null" class="flex items-center space-x-2">
               <Badge v-for="tag in item.tags" :value="tag.name" :color="tag.color" @click="storyFilter(tag)"></Badge>
             </div>
             <div class="mt-2">
@@ -163,15 +163,17 @@ const triggerFetch = async () => {
 }
 
 // follower
-const isFollow = ref(false)
-const getFollow = async () => {
+const followerCount = ref(0)
+const isFollowing = ref(false)
+const isFollowCheck = async () => {
   const { data, error } = await supabase.from("followers").select("*").eq("following_id", userData.value?.id)
   if (data?.length) {
-    isFollow.value = true
+    isFollowing.value = true
   }
 }
 watchOnce(userData, () => {
-  getFollow()
+  isFollowCheck()
+  getFollowerCount()
 })
 const followUser = async () => {
   const { data, error } = await supabase.from("followers").insert({
@@ -179,7 +181,7 @@ const followUser = async () => {
     following_id: userData.value?.id,
   })
   if (data && data.length) {
-    isFollow.value = true
+    isFollowing.value = true
   }
 }
 const unfollowUser = async () => {
@@ -188,8 +190,15 @@ const unfollowUser = async () => {
     following_id: userData.value?.id,
   })
   if (data && data.length) {
-    isFollow.value = false
+    isFollowing.value = false
   }
+}
+const getFollowerCount = async () => {
+  const { data, error, count } = await supabase
+    .from("followers")
+    .select("user_id")
+    .eq("following_id", userData.value?.id)
+  if (count != null) followerCount.value = count
 }
 </script>
 

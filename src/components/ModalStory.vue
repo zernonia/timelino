@@ -6,6 +6,7 @@
     >
       <header class="flex justify-center">
         <Datepicker
+          :style="calendarStyle"
           class="
             text-center
             bg-gray-100
@@ -41,35 +42,39 @@
           ]"
         />
         <div class="flex items-center my-2 space-x-2">
-          <div class="relative">
-            <button @click="isDropdownOpen = !isDropdownOpen" class="btn btn-pale inline-flex items-center text-sm">
-              <i-mdi:plus class="mr-2"></i-mdi:plus> Add Tag
-            </button>
-            <div v-if="isDropdownOpen" class="bg-white absolute bottom-full mb-2 left-0 p-4 rounded-md shadow-md">
-              <ul class="flex">
-                <li v-for="tag in taggingList" class="w-max mb-2 mr-2">
-                  <Badge :value="tag.name" :color="tag.color" @click="addTag(tag)"></Badge>
-                </li>
-              </ul>
-              <div class="flex space-x-2">
-                <input class="px-2 py-1 w-40" type="text" v-model="newTag.name" />
-                <VSwatches
-                  class="flex"
-                  :row-length="'3'"
-                  :popover-y="'top'"
-                  :swatch-style="swatchesStyle"
-                  :wrapper-style="wrapperStyle"
-                  :swatches="swatches"
-                  v-model="newTag.color"
-                ></VSwatches>
-                <button @click="addTagging" class="btn">Add</button>
+          <OnClickOutside @trigger="isDropdownOpen = false">
+            <div class="relative">
+              <button @click="isDropdownOpen = !isDropdownOpen" class="btn btn-pale inline-flex items-center text-sm">
+                <i-mdi:plus class="mr-2"></i-mdi:plus> Add Tag
+              </button>
+              <div v-if="isDropdownOpen" class="bg-white absolute bottom-full mb-2 left-0 p-4 rounded-md shadow-md">
+                <ul class="flex">
+                  <li v-for="tag in taggingList" class="w-max mb-2 mr-2">
+                    <Badge :value="tag.name" :color="tag.color" @click="addTag(tag)"></Badge>
+                  </li>
+                </ul>
+                <div class="flex space-x-2">
+                  <input placeholder="Add new tag.." class="px-2 py-1 w-40" type="text" v-model="newTag.name" />
+                  <VSwatches
+                    class="flex"
+                    :row-length="'3'"
+                    :popover-y="'top'"
+                    :swatch-style="swatchesStyle"
+                    :wrapper-style="wrapperStyle"
+                    :swatches="swatches"
+                    v-model="newTag.color"
+                  ></VSwatches>
+                  <button @click="addTagging" class="btn">Add</button>
+                </div>
               </div>
             </div>
+          </OnClickOutside>
+          <div v-if="tagging[0]">
+            <Badge v-for="(tag, index) in tagging" :value="tag.name" :color="tag.color" @click="removeTag(index)">
+              <i-mdi:minus class="mr-2"></i-mdi:minus>
+              {{ tag }}
+            </Badge>
           </div>
-          <Badge v-for="(tag, index) in tagging" :value="tag.name" :color="tag.color" @click="removeTag(index)">
-            <i-mdi:minus class="mr-2"></i-mdi:minus>
-            {{ tag }}
-          </Badge>
         </div>
       </div>
       <footer class="flex justify-end"><button class="btn" @click="submit">Submit</button></footer>
@@ -88,6 +93,8 @@ import { userState } from "@/store"
 import { Story, Tag } from "@/interface"
 import VSwatches from "vue3-swatches"
 import { useRoute } from "vue-router"
+import { OnClickOutside } from "@vueuse/components"
+import dayjs from "dayjs"
 
 const p = defineProps({
   id: String,
@@ -100,6 +107,8 @@ const dateLimit = ref(new Date())
 const content = ref("")
 const tagging = ref<Tag[]>([])
 const route = useRoute()
+
+const formatDate = computed(() => dayjs(date.value).format("YYYY-MM-DD"))
 
 const fetchData = async () => {
   if (!p.id) return
@@ -120,26 +129,23 @@ const fetchData = async () => {
 fetchData()
 
 const submit = async () => {
-  if (p.id) {
-    const { data, error } = await supabase
-      .from("stories")
-      .update({
-        date: date.value,
-        story: content.value,
-        tagging: tagging.value.map((i) => i.id),
-      })
-      .match({ id: p.id })
-    if (!error) emit("success")
-  } else {
-    const { data, error } = await supabase.from("stories").insert({
-      user_id: userState.user?.id,
-      date: date.value,
-      story: content.value,
-      tagging: tagging.value.map((i) => i.id),
-    })
-    if (!error) emit("success")
-  }
+  console.log(date.value)
+  const { data, error } = await supabase.from("stories").upsert({
+    id: p.id ? p.id : undefined,
+    user_id: userState.user?.id,
+    date: formatDate.value,
+    story: content.value,
+    tagging: tagging.value.map((i) => i.id),
+  })
+  if (!error) emit("success")
 }
+
+// calendar
+const calendarStyle = ref({
+  "--vdp-hover-bg-color": "#1d4ed8",
+  "--vdp-selected-color": "#1d4ed8",
+  "--vdp-selected-bg-color": "#dfedfe",
+})
 
 // tagging
 const isDropdownOpen = ref(false)
@@ -160,7 +166,10 @@ const wrapperStyle = ref({
 const addTagging = async () => {
   const { data, error } = await supabase.from("tags").upsert({ user_id: userState.user?.id, ...newTag.value })
   console.log(data, error)
-  if (data && data.length) tagging.value.push(data[0])
+  if (data && data.length) {
+    tagging.value.push(data[0])
+    taggingList.value.push(data[0])
+  }
 }
 const fetchTagging = async () => {
   const { data, error } = await supabase.from("tags").select("*").eq("user_id", userState.user?.id)
@@ -172,8 +181,12 @@ const fetchTagging = async () => {
 fetchTagging()
 
 const addTag = (tag: Tag) => {
-  if (tagging.value.findIndex((i) => i.name == tag.name) != -1) return
-  tagging.value.push(tag)
+  if (tagging.value[0]) {
+    if (tagging.value.findIndex((i) => i.name == tag.name) != -1) return
+    tagging.value.push(tag)
+  } else {
+    tagging.value[0] = tag
+  }
 }
 const removeTag = (i: number) => {
   tagging.value = tagging.value.splice(i, 1)
@@ -188,7 +201,7 @@ const triggerDiscard = () => {
 
 <style>
 .v3dp__popout {
-  @apply -ml-8 mt-2;
+  @apply -ml-2 mt-2;
 }
 .ql-formats {
   @apply w-full !inline-flex justify-center;

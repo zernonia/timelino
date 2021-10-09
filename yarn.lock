@@ -311,7 +311,16 @@
     quill "^1.3.7"
     quill-delta "^3.6.3"
 
-"@vueuse/core@^6.5.3":
+"@vueuse/components@^6.5.3":
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/@vueuse/components/-/components-6.5.3.tgz#bc76d0c956a4b77177256bff1509d7b1b94339a5"
+  integrity sha512-QbLARY2gGpt7p2qUgjAY5imX3geMWADoXnZ/Tb8VXU2jdZRYlBc3zO5o00GpTeMs6frassVUluE5Uy0lgAqOSg==
+  dependencies:
+    "@vueuse/core" "6.5.3"
+    "@vueuse/shared" "6.5.3"
+    vue-demi "*"
+
+"@vueuse/core@6.5.3", "@vueuse/core@^6.5.3":
   version "6.5.3"
   resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-6.5.3.tgz#15848eaccad18652df4cb4b6ccae7bd7921a0c7e"
   integrity sha512-o3CTu4nEqs371sDY5qLBX0r4QOm6GVpm3ApQc2Y+p8OMI2rRGartQo8xRykpUfsyq602A+SVtm/wxIWBkD/KCQ==
