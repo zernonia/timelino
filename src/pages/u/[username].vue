@@ -76,12 +76,13 @@ import { Profile, Story, Tag } from "@/interface"
 import { userState } from "@/store"
 import { supabase } from "@/supabase"
 import { ref, computed } from "vue"
-import { useRoute } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 import dayjs from "dayjs"
 import { watchOnce, useEventBus } from "@vueuse/core"
 
 userState
 const route = useRoute()
+const router = useRouter()
 const isLoading = ref(true)
 const isCurrentUser = computed(() => userState.profiles?.username == route.params.username)
 const userData = ref<Profile | null>()
@@ -175,16 +176,23 @@ const triggerFetch = async () => {
 const followerCount = ref(0)
 const isFollowing = ref(false)
 const isFollowCheck = async () => {
-  const { data, error } = await supabase.from("followers").select("*").eq("following_id", userData.value?.id)
+  const { data, error } = await supabase.from("followers").select("*").match({
+    user_id: userState.user?.id,
+    following_id: userData.value?.id,
+  })
   if (data?.length) {
     isFollowing.value = true
   }
 }
 watchOnce(userData, () => {
   isFollowCheck()
-  getFollowerCount()
+  // getFollowerCount()
 })
 const followUser = async () => {
+  if (!userState.user?.id) {
+    router.push({ name: "login" })
+    return
+  }
   const { data, error } = await supabase.from("followers").insert({
     user_id: userState.user?.id,
     following_id: userData.value?.id,
