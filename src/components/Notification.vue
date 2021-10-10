@@ -10,7 +10,7 @@
         </span>
       </button>
       <div v-if="isDropdownOpen" class="absolute top-full right-0 mt-2 rounded-md shadow-md py-2 !z-10 bg-white">
-        <ul class="dropdown w-80" v-if="notification.length">
+        <ul class="dropdown sm:w-80 w-64" v-if="notification.length">
           <li v-for="item in notification" :key="item.id">
             <button
               @click="onClickNotifications(item.payload.username)"

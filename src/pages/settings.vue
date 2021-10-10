@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col w-full max-w-screen-sm">
-    <h2 class="my-8 text-3xl font-bold">Settings</h2>
+  <div class="px-4 sm:px-0 flex flex-col w-full max-w-screen-sm">
+    <h2 class="my-4 sm:my-8 text-2xl sm:text-3xl font-bold">Settings</h2>
     <div>
       <button
         @click="target.click()"

@@ -1,9 +1,6 @@
 <template>
   <Modal @close="isOpen = true">
-    <div
-      class="w-full h-min max-w-screen-sm bg-white p-6 flex flex-col rounded-lg shadow-md"
-      style="max-height: calc(100vh - 210px)"
-    >
+    <div class="w-full h-min max-w-screen-sm bg-white p-6 flex flex-col rounded-lg shadow-md">
       <header class="flex justify-center relative">
         <div @click="datepicker.focus()" class="flex items-center btn btn-white cursor-pointer">
           <i-mdi:clock class="w-4 h-4"></i-mdi:clock>
@@ -56,9 +53,9 @@
               </button>
               <div
                 v-if="isDropdownOpen"
-                class="bg-white absolute bottom-full mb-2 left-0 p-4 max-w-608px rounded-md shadow-md"
+                class="bg-white absolute bottom-full mb-2 left-0 p-4 w-300px sm:max-w-608px rounded-md shadow-md"
               >
-                <ul class="flex">
+                <ul class="flex flex-wrap">
                   <li v-for="tag in taggingList" :key="tag.name" class="w-max mb-2 mr-2">
                     <Badge :value="tag.name" :color="tag.color" @click="addTag(tag)"></Badge>
                   </li>
@@ -263,7 +260,7 @@ const pickFile = (e: any) => {
   @apply -ml-19 mt-2;
 }
 .ql-formats {
-  @apply w-full !inline-flex justify-center;
+  @apply w-full !inline-flex justify-center flex-wrap;
 }
 .ql-toolbar.ql-snow {
   font-family: unset;
@@ -301,10 +298,10 @@ const pickFile = (e: any) => {
   @apply focus:outline-none;
 }
 .ql-editor h1 {
-  @apply !text-2xl font-bold !leading-10;
+  @apply !text-xl sm:!text-2xl font-bold !leading-6 sm:!leading-10;
 }
 .ql-editor p {
-  @apply py-2 leading-6;
+  @apply !text-sm sm:!text-base py-2  leading-5 sm:leading-6;
 }
 .ql-editor blockquote {
   @apply !my-2 !pl-4 !border-gray-200 !border-l-4;

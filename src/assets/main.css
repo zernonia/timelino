@@ -13,14 +13,14 @@ body {
   @apply relative;
 }
 label {
-  @apply mt-4 mb-2 font-semibold text-gray-900;
+  @apply text-sm sm:text-base mt-4 mb-2 font-semibold text-gray-900;
 }
 input,
 textarea {
-  @apply px-4 py-2 bg-gray-100 rounded-md ring ring-transparent transition focus:outline-transparent focus:ring-blue-400;
+  @apply text-sm sm:text-base px-4 py-2 bg-gray-100 rounded-md ring ring-transparent transition focus:outline-transparent focus:ring-blue-400;
 }
 .btn {
-  @apply px-4 py-2 rounded-lg bg-blue-700 text-white font-semibold ring ring-transparent transition focus:outline-transparent focus:ring-blue-400;
+  @apply px-4 py-2 rounded-lg bg-blue-700 text-white text-sm sm:text-base font-semibold ring ring-transparent transition focus:outline-transparent focus:ring-blue-400;
 }
 .btn-white {
   @apply bg-white text-gray-700 border-1 hover:shadow;

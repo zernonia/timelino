@@ -1,9 +1,9 @@
 <template>
-  <div class="w-screen-sm">
+  <div class="max-w-screen-sm w-full px-4 sm:px-0">
     <div v-if="userData && !isLoading">
       <div>
         <div class="flex items-center justify-between">
-          <div class="w-32 h-32 rounded-full overflow-hidden">
+          <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden">
             <img :src="userData.avatar_url" class="w-full h-full object-cover" />
           </div>
           <div v-if="isCurrentUser">
@@ -14,9 +14,9 @@
             <button v-else @click="unfollowUser" class="btn btn-white">Following</button>
           </div>
         </div>
-        <h1 class="mt-2 text-2xl text-gray-900 font-bold">{{ userData.full_name }}</h1>
-        <h2 class="text-gray-400">@{{ userData.username }}</h2>
-        <p class="mt-4 whitespace-pre-line">{{ userData.introduction }}</p>
+        <h1 class="mt-2 text-xl sm:text-2xl text-gray-900 font-bold">{{ userData.full_name }}</h1>
+        <h2 class="text-sm sm:text-base text-gray-400">@{{ userData.username }}</h2>
+        <p class="text-sm sm:text-base mt-4 whitespace-pre-line">{{ userData.introduction }}</p>
         <ul>
           <li v-for="link in userData.links" :key="link">
             {{ link }}
@@ -28,7 +28,7 @@
 
       <div class="mt-6">
         <div class="flex items-center">
-          <h1 class="text-2xl font-bold text-gray-900">Story</h1>
+          <h1 class="text-xl sm:text-2xl font-bold text-gray-900">Story</h1>
           <button
             v-if="storyTagFilter"
             @click="storyFilter()"
@@ -43,10 +43,13 @@
             v-for="(value, key) in groupUserStory"
             :key="key"
           >
-            <div class="absolute top-0 -left-6 transform -translate-x-full text-sm text-gray-400">
+            <div class="hidden lg:block absolute top-0 -left-6 transform -translate-x-full text-sm text-gray-400">
               {{ dayjs(key).format("MMM DD, YYYY") }}
             </div>
-            <div v-for="item in value" :key="item.id" class="ml-10 mt-4 timeline-content">
+            <div v-for="item in value" :key="item.id" class="ml-4 sm:ml-10 mt-4 timeline-content">
+              <div class="block lg:hidden text-sm text-gray-400 mb-2">
+                {{ dayjs(item.date).format("MMM DD, YYYY") }}
+              </div>
               <div v-if="item.tags[0] != null" class="flex items-center space-x-2">
                 <Badge
                   v-for="tag in item.tags"
@@ -74,7 +77,7 @@
       </div>
     </div>
     <div v-else-if="!isLoading" class="flex flex-col items-center space-y-2">
-      <h2 class="text-2xl text-gray-900 font-bold">User not found...</h2>
+      <h2 class="text-xl sm:text-2xl text-gray-900 font-bold">User not found...</h2>
       <button class="btn" @click="$router.push({ name: 'index' })">Home</button>
     </div>
 

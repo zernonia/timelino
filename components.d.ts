@@ -16,6 +16,7 @@ declare module 'vue' {
     'IMdi:google': typeof import('~icons/mdi/google')['default']
     'IMdi:image': typeof import('~icons/mdi/image')['default']
     'IMdi:logoutVariant': typeof import('~icons/mdi/logout-variant')['default']
+    'IMdi:menu': typeof import('~icons/mdi/menu')['default']
     'IMdi:minus': typeof import('~icons/mdi/minus')['default']
     'IMdi:plus': typeof import('~icons/mdi/plus')['default']
     'IMdi:squareEditOutline': typeof import('~icons/mdi/square-edit-outline')['default']
