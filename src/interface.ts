@@ -16,6 +16,7 @@ export interface Story {
   image: string
   tags: Tag[]
   created_at: string
+  user_data?: Profile
 }
 
 export interface Tag {

@@ -15,6 +15,12 @@
           </button>
         </li>
         <li>
+          <button @click="onClickSetting()" class="w-full py-2 px-4 flex items-center focus:outline-transparent">
+            <i-mdi:cog class="mr-2"></i-mdi:cog>
+            Settings
+          </button>
+        </li>
+        <li>
           <button @click="onClickLogout()" class="w-full py-2 px-4 flex items-center focus:outline-transparent">
             <i-mdi:logout-variant class="mr-2"></i-mdi:logout-variant>
             Log out
@@ -39,6 +45,10 @@ const onClickPage = () => {
   isDropdownOpen.value = false
   router.push({ name: "u-username", params: { username: userState.profiles?.username } })
 }
+const onClickSetting = () => {
+  isDropdownOpen.value = false
+  router.push({ name: "settings" })
+}
 const onClickLogout = async () => {
   isDropdownOpen.value = false
   const { error } = await supabase.auth.signOut()
@@ -48,6 +58,6 @@ const onClickLogout = async () => {
 
 <style>
 .dropdown button {
-  @apply bg-white transition hover:bg-blue-100 bg-opacity-50 text-sm;
+  @apply bg-white transition hover:bg-blue-100 hover:text-blue-700 bg-opacity-50 text-sm;
 }
 </style>

@@ -16,7 +16,7 @@
         </div>
         <h1 class="mt-2 text-2xl text-gray-900 font-bold">{{ userData.full_name }}</h1>
         <h2 class="text-gray-400">@{{ userData.username }}</h2>
-        <p class="mt-4">{{ userData.introduction }}</p>
+        <p class="mt-4 whitespace-pre-line">{{ userData.introduction }}</p>
         <ul>
           <li v-for="link in userData.links" :key="link">
             {{ link }}
@@ -39,7 +39,7 @@
         </div>
         <div class="relative mt-8">
           <div
-            class="relative border-l border-gray-200 timeline-track mt-4"
+            class="relative border-l border-gray-200 timeline-track mt-8"
             v-for="(value, key) in groupUserStory"
             :key="key"
           >
@@ -245,7 +245,7 @@ const getFollowerCount = async () => {
   width: 1.5rem;
 }
 .timeline-content {
-  @apply relative bottom-1 border-b-1;
+  @apply relative bottom-1;
 }
 .timeline-content:hover .helper {
   @apply flex;
