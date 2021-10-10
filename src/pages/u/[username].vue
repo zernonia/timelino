@@ -36,7 +36,7 @@
       </div>
       <div class="relative mt-8">
         <div class="relative border-l border-gray-200 timeline-track mt-4" v-for="(value, key) in groupUserStory">
-          <div class="absolute top-0 -left-6 transform -translate-x-full text-sm font-semibold text-gray-400">
+          <div class="absolute top-0 -left-6 transform -translate-x-full text-sm text-gray-400">
             {{ dayjs(key).format("MMM DD, YYYY") }}
           </div>
           <div v-for="item in value" :key="item.id" class="ml-10 mt-4 timeline-content">
@@ -45,6 +45,7 @@
             </div>
             <div class="mt-2">
               <div class="ql-editor px-0" v-html="item.story"></div>
+              <img v-if="item.image" class="w-full rounded-xl" :src="item.image" alt="" />
             </div>
             <div v-if="isCurrentUser" class="helper hidden items-center absolute top-0 right-0">
               <button @click="buttonEdit(item.id)" class="btn-helper">

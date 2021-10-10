@@ -1,25 +1,31 @@
 <template>
   <Modal @close="isOpen = true">
     <div
-      class="w-full h-min max-w-screen-sm bg-white p-4 flex flex-col rounded-lg shadow-md"
+      class="w-full h-min max-w-screen-sm bg-white p-6 flex flex-col rounded-lg shadow-md overflow-hidden"
       style="max-height: calc(100vh - 210px)"
     >
-      <header class="flex justify-center">
-        <Datepicker
-          :style="calendarStyle"
-          class="
-            text-center
-            bg-gray-100
-            py-2
-            rounded-md
-            cursor-pointer
-            font-bold
-            focus:outline-transparent focus:ring-transparent
-          "
-          v-model="date"
-          :input-format="'LLL dd, yyyy'"
-          :upper-limit="dateLimit"
-        />
+      <header class="flex justify-center relative">
+        <div @click="datepicker.focus()" class="flex items-center btn btn-white cursor-pointer">
+          <i-mdi:clock class="w-4 h-4"></i-mdi:clock>
+          <Datepicker
+            :style="calendarStyle"
+            class="
+              text-center
+              py-0
+              w-32
+              rounded-md
+              text-sm
+              bg-transparent
+              cursor-pointer
+              font-semibold
+              focus:outline-transparent focus:ring-transparent
+            "
+            v-model="date"
+            :input-format="'LLL dd, yyyy'"
+            :upper-limit="dateLimit"
+          />
+          <i-mdi:arrow-down-thick class="w-4 h-4"></i-mdi:arrow-down-thick>
+        </div>
       </header>
       <div class="flex-grow h-full">
         <QuillEditor
@@ -85,14 +91,25 @@
           </Badge>
         </div>
       </div>
-      <footer class="flex justify-end"><button class="btn" @click="submit">Submit</button></footer>
+      <footer class="flex justify-between">
+        <button v-if="!image" class="btn-icon" @click="targetImage.click()">
+          <i-mdi:image class="w-6 h-6"></i-mdi:image>
+        </button>
+        <button v-else class="flex items-end w-10 h-10 focus:outline-transparent" @click="targetImage.click()">
+          <div class="cursor-pointer relative transform origin-bottom-left transition hover:scale-1000">
+            <img class="w-full rounded-sm" :src="image" alt="" />
+          </div>
+        </button>
+        <input class="hidden" ref="targetImage" type="file" @input="pickFile" accept="image/*" />
+        <button class="btn" @click="submit">Submit</button>
+      </footer>
     </div>
     <ModalDiscard v-if="isOpen" @close="isOpen = false" @success="triggerDiscard"></ModalDiscard>
   </Modal>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue"
+import { ref, computed, onMounted } from "vue"
 import { QuillEditor } from "@vueup/vue-quill"
 import Datepicker from "vue3-datepicker"
 import "@vueup/vue-quill/dist/vue-quill.snow.css"
@@ -113,6 +130,7 @@ const editor = ref()
 const date = ref(new Date())
 const dateLimit = ref(new Date())
 const content = ref("")
+const image = ref("")
 const tagging = ref<Tag[]>([])
 const route = useRoute()
 
@@ -131,6 +149,7 @@ const fetchData = async () => {
     date.value = new Date(data.date)
     content.value = data.story
     tagging.value = data.tags
+    image.value = data.image
   }
   editor.value.setHTML(content.value)
 }
@@ -142,6 +161,7 @@ const submit = async () => {
     id: p.id ? p.id : undefined,
     user_id: userState.user?.id,
     date: formatDate.value,
+    image: image.value,
     story: content.value,
     tagging: tagging.value.map((i) => i.id),
   })
@@ -149,6 +169,10 @@ const submit = async () => {
 }
 
 // calendar
+const datepicker = ref()
+onMounted(() => {
+  datepicker.value = document.querySelector(".v3dp__input_wrapper")?.firstChild
+})
 const calendarStyle = ref({
   "--vdp-hover-bg-color": "#1d4ed8",
   "--vdp-selected-color": "#1d4ed8",
@@ -205,11 +229,33 @@ const isOpen = ref(false)
 const triggerDiscard = () => {
   emit("close")
 }
+
+// add images
+const targetImage = ref()
+const pickFile = (e: any) => {
+  let files = e.target.files as FileList
+  const file = files[0]
+  let reader = new FileReader()
+  reader.onload = async (e) => {
+    const result = e.target?.result as string
+    let r = (Math.random() + 1).toString(36).substring(7)
+    image.value = result
+    const file_name = r + "-" + file.name
+    const { data, error } = await supabase.storage.from("images").upload(file_name, file)
+    if (data) {
+      const { publicURL } = supabase.storage.from("images").getPublicUrl(file_name)
+      if (publicURL) {
+        image.value = publicURL
+      }
+    }
+  }
+  reader.readAsDataURL(file)
+}
 </script>
 
 <style>
 .v3dp__popout {
-  @apply -ml-2 mt-2;
+  @apply -ml-19 mt-2;
 }
 .ql-formats {
   @apply w-full !inline-flex justify-center;
@@ -256,7 +302,7 @@ const triggerDiscard = () => {
   @apply !my-2 !pl-4 !border-gray-200 !border-l-4;
 }
 .ql-editor pre.ql-syntax {
-  @apply !bg-gray-200 !text-gray-900 my-4 p-2 rounded-md;
+  @apply !bg-gray-200 !text-gray-900 my-4 p-2 rounded-md !text-base;
 }
 .ql-editor ol,
 .ql-editor ul {

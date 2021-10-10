@@ -1,20 +1,7 @@
 <template>
   <OnClickOutside @trigger="isDropdownOpen = false">
     <div class="relative">
-      <button
-        @click="isDropdownOpen = !isDropdownOpen"
-        class="
-          text-blue-700
-          flex
-          p-2.5
-          rounded-full
-          shadow-transparent
-          transition
-          ring ring-transparent
-          hover:shadow-md
-          focus:outline-transparent focus:ring-blue-400
-        "
-      >
+      <button @click="isDropdownOpen = !isDropdownOpen" class="btn-icon">
         <i-mdi:bell class="w-6 h-6"></i-mdi:bell>
         <span v-if="isNew" class="absolute top-2 right-2">
           <span class="flex h-3 w-3 relative">

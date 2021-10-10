@@ -23,7 +23,7 @@ textarea {
   @apply px-4 py-2 rounded-lg bg-blue-700 text-white font-semibold ring ring-transparent transition focus:outline-transparent focus:ring-blue-400;
 }
 .btn-white {
-  @apply bg-white text-gray-900 border-1 hover:shadow;
+  @apply bg-white text-gray-700 border-1 hover:shadow;
 }
 .btn-pale {
   @apply text-blue-700 bg-blue-200 bg-opacity-50;
@@ -33,6 +33,9 @@ textarea {
 }
 .btn-helper {
   @apply p-2 inline-flex text-gray-400 transition hover:text-gray-500 focus:outline-transparent;
+}
+.btn-icon {
+  @apply text-blue-700 flex p-2.5 rounded-full shadow-transparent transition ring ring-transparent hover:shadow-md focus:outline-transparent focus:ring-blue-400;
 }
 .badge {
   @apply inline-flex items-center text-sm;

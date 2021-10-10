@@ -29,7 +29,7 @@ import { useEventBus, useWindowSize, useResizeObserver } from "@vueuse/core"
 
 const { width } = useWindowSize()
 const getUserData = async () => {
-  if (userState.user) {
+  if (userState.user && !userState.profiles?.id) {
     const { data, error } = await supabase.from<Profile>("profiles").select("*").eq("id", userState.user.id).single()
     if (!error) userState.profiles = data
   }
