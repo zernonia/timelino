@@ -1,11 +1,11 @@
 <template>
   <div class="w-full mt-8 max-w-screen-lg flex flex-col md:flex-row px-6">
     <div class="w-full flex flex-col mr-4 overflow-hidden sm:sticky top-6 h-max">
-      <h2 class="text-2xl md:text-3xl font-bold text-gray-900">
+      <h2 class="text-3xl font-bold text-gray-900">
         Hi, <span v-if="userState.profiles?.id">{{ userState.profiles?.full_name }}</span>
       </h2>
-      <div class="mt-8">
-        <h3 class="text-xl md:text-2xl font-bold text-gray-900">Suggested user</h3>
+      <div class="mt-4 md:mt-8">
+        <h3 class="text-2xl font-bold text-gray-900">Suggested user</h3>
         <ul class="mt-4 flex flex-col space-y-4">
           <button
             class="w-full text-left p-4 shadow-transparent transition hover:shadow-md focus:outline-transparent"

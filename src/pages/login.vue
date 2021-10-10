@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col w-auto items-center mt-20">
-    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Login</h1>
+    <h1 class="text-3xl font-bold text-gray-900">Login</h1>
     <div class="flex flex-col">
       <label for="email">Email</label>
       <input type="email" name="email" id="email" v-model="form.email" />

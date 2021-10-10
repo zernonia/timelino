@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-screen-sm w-full px-4 sm:px-0">
+  <div class="max-w-screen-sm w-full px-6 sm:px-0">
     <div v-if="userData && !isLoading">
       <div>
         <div class="flex items-center justify-between">
@@ -26,9 +26,9 @@
 
       <div class="h-1px w-full bg-gray-200 my-8"></div>
 
-      <div class="mt-6">
+      <div class="">
         <div class="flex items-center">
-          <h1 class="text-xl sm:text-2xl font-bold text-gray-900">Story</h1>
+          <h1 class="text-2xl font-bold text-gray-900">Story</h1>
           <button
             v-if="storyTagFilter"
             @click="storyFilter()"
@@ -37,9 +37,9 @@
             <i-mdi:filter-off></i-mdi:filter-off>
           </button>
         </div>
-        <div class="relative mt-8">
+        <div class="relative mt-4 sm:mt-8">
           <div
-            class="relative border-l border-gray-200 timeline-track mt-8"
+            class="relative border-l border-gray-200 timeline-track"
             v-for="(value, key) in groupUserStory"
             :key="key"
           >
@@ -77,7 +77,7 @@
       </div>
     </div>
     <div v-else-if="!isLoading" class="flex flex-col items-center space-y-2">
-      <h2 class="text-xl sm:text-2xl text-gray-900 font-bold">User not found...</h2>
+      <h2 class="text-2xl text-gray-900 font-bold">User not found...</h2>
       <button class="btn" @click="$router.push({ name: 'index' })">Home</button>
     </div>
 

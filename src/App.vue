@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center justify-center">
-    <nav class="px-4 sm:px-8 py-2 sm:py-4 w-full flex items-center justify-between">
+    <nav class="px-6 sm:px-8 py-2 sm:py-4 w-full flex items-center justify-between">
       <h1
         @click="$router.push({ name: userState.user?.id ? 'home' : 'index' })"
         class="text-2xl sm:text-4xl font-bold text-blue-700 cursor-pointer"
@@ -20,9 +20,22 @@
           <div
             @click.self="isMenuOpen = false"
             v-if="isMenuOpen"
-            class="z-1000 fixed top-0 left-0 w-screen h-screen bg-white bg-opacity-50 backdrop-filter backdrop-blur-sm"
+            class="
+              z-1000
+              fixed
+              top-0
+              left-0
+              w-screen
+              h-screen
+              bg-white bg-opacity-50
+              flex
+              justify-center
+              backdrop-filter backdrop-blur-sm
+            "
           >
-            <div class="py-4 bg-white flex items-center justify-center space-x-4">
+            <div
+              class="w-max h-min mt-8 rounded-md px-4 py-2 bg-white flex items-center justify-center space-x-4 shadow"
+            >
               <button class="btn" @click=";(isOpen = true), (isMenuOpen = false)">Add Story</button>
               <ProfileDropdown></ProfileDropdown>
               <Notification></Notification>
@@ -30,7 +43,7 @@
           </div>
         </div>
       </div>
-      <div v-else>
+      <div class="py-2" v-else>
         <button @click="$router.push({ name: 'login' })" class="btn">Login</button>
       </div>
     </nav>

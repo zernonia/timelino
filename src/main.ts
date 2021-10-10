@@ -13,7 +13,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.name == "login" && userState.user?.id) {
     next({ name: "home" })
-  } else if (to.name == "home" && !userState.user?.id) {
+  } else if ((to.name == "home" || to.name == "settings") && !userState.user?.id) {
     next({ name: "login" })
   }
   next()
