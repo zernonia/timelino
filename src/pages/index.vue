@@ -13,19 +13,19 @@
           <h3 class="text-white font-bold text-2xl md:text-3xl">For Creator</h3>
           <ul class="mt-4 text-white">
             <li class="flex items-start py-1">
-              <i-mdi:check class="mr-2 mt-0.5"></i-mdi:check>
+              <i-mdi:check class="mr-2 flex-shrink-0 mt-0.5"></i-mdi:check>
               Showcase your work
             </li>
             <li class="flex items-start py-1">
-              <i-mdi:check class="mr-2 mt-0.5"></i-mdi:check>
+              <i-mdi:check class="mr-2 flex-shrink-0 mt-0.5"></i-mdi:check>
               No comment system
             </li>
             <li class="flex items-start py-1">
-              <i-mdi:check class="mr-2 mt-0.5"></i-mdi:check>
+              <i-mdi:check class="mr-2 flex-shrink-0 mt-0.5"></i-mdi:check>
               Easy category collection
             </li>
             <li class="flex items-start py-1">
-              <i-mdi:check class="mr-2 mt-0.5"></i-mdi:check>
+              <i-mdi:check class="mr-2 flex-shrink-0 mt-0.5"></i-mdi:check>
               Editable timeline
             </li>
           </ul>
@@ -35,19 +35,19 @@
           <h3 class="text-blue-700 font-bold text-2xl md:text-3xl">For Follower</h3>
           <ul class="mt-4 text-blue-900">
             <li class="flex items-start py-1">
-              <i-mdi:check class="mr-2 mt-0.5"></i-mdi:check>
+              <i-mdi:check class="mr-2 flex-shrink-0 mt-0.5"></i-mdi:check>
               Follow your creator
             </li>
             <li class="flex items-start py-1">
-              <i-mdi:check class="mr-2 mt-0.5"></i-mdi:check>
+              <i-mdi:check class="mr-2 flex-shrink-0 mt-0.5"></i-mdi:check>
               Filter interested category
             </li>
             <li class="flex items-start py-1">
-              <i-mdi:check class="mr-2 mt-0.5"></i-mdi:check>
+              <i-mdi:check class="mr-2 flex-shrink-0 mt-0.5"></i-mdi:check>
               Ads-free
             </li>
             <li class="flex items-start py-1 opacity-50">
-              <i-mdi:check class="mr-2 mt-0.5"></i-mdi:check>
+              <i-mdi:check class="mr-2 flex-shrink-0 mt-0.5"></i-mdi:check>
               Get notified with new content (soon)
             </li>
           </ul>
