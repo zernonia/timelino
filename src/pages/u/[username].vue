@@ -81,7 +81,9 @@
       <button class="btn" @click="$router.push({ name: 'index' })">Home</button>
     </div>
 
-    <ModalStory v-if="isOpen" @close="isOpen = false" @success="triggerFetch" :id="modalId"></ModalStory>
+    <transition name="fade">
+      <ModalStory v-if="isOpen" @close="isOpen = false" @success="triggerFetch" :id="modalId"></ModalStory>
+    </transition>
     <ModalDelete v-if="isDeleteOpen" @close="isDeleteOpen = false" @success="triggerDelete"></ModalDelete>
   </div>
 </template>

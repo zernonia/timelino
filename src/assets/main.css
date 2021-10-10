@@ -47,3 +47,24 @@ textarea {
 .error {
   @apply mt-2 text-red-500;
 }
+
+.slide-top-down-enter-active,
+.slide-top-down-leave-active {
+  transition: all 0.15s ease-in-out;
+}
+
+.slide-top-down-enter-from,
+.slide-top-down-leave-to {
+  transform: translateY(-100px);
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}

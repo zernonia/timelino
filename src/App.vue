@@ -17,30 +17,32 @@
           <button @click="isMenuOpen = true" class="btn-icon">
             <i-mdi:menu class="text-xl"></i-mdi:menu>
           </button>
-          <div
-            @click.self="isMenuOpen = false"
-            v-if="isMenuOpen"
-            class="
-              z-1000
-              fixed
-              top-0
-              left-0
-              w-screen
-              h-screen
-              bg-white bg-opacity-50
-              flex
-              justify-center
-              backdrop-filter backdrop-blur-sm
-            "
-          >
+          <transition name="slide-top-down">
             <div
-              class="w-max h-min mt-8 rounded-md px-4 py-2 bg-white flex items-center justify-center space-x-4 shadow"
+              @click.self="isMenuOpen = false"
+              v-if="isMenuOpen"
+              class="
+                z-1000
+                fixed
+                top-0
+                left-0
+                w-screen
+                h-screen
+                bg-white bg-opacity-50
+                flex
+                justify-center
+                backdrop-filter backdrop-blur-sm
+              "
             >
-              <button class="btn" @click=";(isOpen = true), (isMenuOpen = false)">Add Story</button>
-              <ProfileDropdown></ProfileDropdown>
-              <Notification></Notification>
+              <div
+                class="w-max h-min mt-8 rounded-md px-4 py-2 bg-white flex items-center justify-center space-x-4 shadow"
+              >
+                <button class="btn" @click=";(isOpen = true), (isMenuOpen = false)">Add Story</button>
+                <ProfileDropdown></ProfileDropdown>
+                <Notification></Notification>
+              </div>
             </div>
-          </div>
+          </transition>
         </div>
       </div>
       <div class="py-2" v-else>
@@ -48,7 +50,9 @@
       </div>
     </nav>
     <router-view></router-view>
-    <ModalStory v-if="isOpen" @close="isOpen = false" @success="triggerFetch"></ModalStory>
+    <transition name="fade">
+      <ModalStory v-if="isOpen" @close="isOpen = false" @success="triggerFetch"></ModalStory>
+    </transition>
   </div>
 </template>
 
