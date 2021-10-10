@@ -9,8 +9,8 @@
           </span>
         </span>
       </button>
-      <div v-if="isDropdownOpen" class="absolute top-full right-0 mt-2 w-80 rounded-md shadow-md py-2 !z-10 bg-white">
-        <ul v-if="notification.length">
+      <div v-if="isDropdownOpen" class="absolute top-full right-0 mt-2 rounded-md shadow-md py-2 !z-10 bg-white">
+        <ul class="dropdown w-80" v-if="notification.length">
           <li v-for="item in notification" :key="item.id">
             <button
               @click="onClickNotifications(item.payload.username)"
@@ -25,7 +25,7 @@
             </button>
           </li>
         </ul>
-        <p class="text-sm text-gray-400 text-center" v-else>No notification...</p>
+        <p class="text-sm p-6 w-max text-gray-400 text-center" v-else>No notification...</p>
       </div>
     </div>
   </OnClickOutside>
@@ -71,7 +71,7 @@ const subcription = supabase
   .on("INSERT", (payload) => {
     isNew.value = true
     console.log("new notification", payload)
-    notification.value = [payload.new, ...notification.value.pop()]
+    notification.value = [payload.new, ...notification.value.slice(0, 4)]
   })
   .subscribe()
 

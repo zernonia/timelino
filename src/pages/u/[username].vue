@@ -3,7 +3,9 @@
     <div v-if="userData && !isLoading">
       <div>
         <div class="flex items-center justify-between">
-          <img :src="userData.avatar_url" class="w-32 rounded-full" />
+          <div class="w-32 h-32 rounded-full overflow-hidden">
+            <img :src="userData.avatar_url" class="w-full h-full object-cover" />
+          </div>
           <div v-if="isCurrentUser">
             <button @click="$router.push({ name: 'settings' })" class="btn btn-white">Settings</button>
           </div>
@@ -16,7 +18,7 @@
         <h2 class="text-gray-400">@{{ userData.username }}</h2>
         <p class="mt-4">{{ userData.introduction }}</p>
         <ul>
-          <li v-for="link in userData.links">
+          <li v-for="link in userData.links" :key="link">
             {{ link }}
           </li>
         </ul>
@@ -36,13 +38,23 @@
           </button>
         </div>
         <div class="relative mt-8">
-          <div class="relative border-l border-gray-200 timeline-track mt-4" v-for="(value, key) in groupUserStory">
+          <div
+            class="relative border-l border-gray-200 timeline-track mt-4"
+            v-for="(value, key) in groupUserStory"
+            :key="key"
+          >
             <div class="absolute top-0 -left-6 transform -translate-x-full text-sm text-gray-400">
               {{ dayjs(key).format("MMM DD, YYYY") }}
             </div>
             <div v-for="item in value" :key="item.id" class="ml-10 mt-4 timeline-content">
               <div v-if="item.tags[0] != null" class="flex items-center space-x-2">
-                <Badge v-for="tag in item.tags" :value="tag.name" :color="tag.color" @click="storyFilter(tag)"></Badge>
+                <Badge
+                  v-for="tag in item.tags"
+                  :key="tag.name"
+                  :value="tag.name"
+                  :color="tag.color"
+                  @click="storyFilter(tag)"
+                ></Badge>
               </div>
               <div class="mt-2">
                 <div class="ql-editor px-0" v-html="item.story"></div>

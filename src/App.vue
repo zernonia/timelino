@@ -1,14 +1,10 @@
 <template>
   <div class="flex flex-col items-center justify-center">
     <nav class="px-8 py-4 w-full flex items-center justify-between">
-      <h1 @click="$router.push({ name: 'index' })" class="text-4xl font-bold text-blue-700 cursor-pointer">Timelimo</h1>
+      <h1 @click="$router.push({ name: 'home' })" class="text-4xl font-bold text-blue-700 cursor-pointer">Timelimo</h1>
       <div v-if="userState.profiles?.username" class="flex items-center space-x-4">
         <Notification></Notification>
-        <img
-          @click="$router.push({ name: 'u-username', params: { username: userState.profiles?.username } })"
-          class="w-10 h-10 rounded-full cursor-pointer object-cover"
-          :src="userState.profiles.avatar_url"
-        />
+        <ProfileDropdown></ProfileDropdown>
         <button class="btn" @click="isOpen = true">Add Story</button>
       </div>
       <div v-else>
@@ -41,6 +37,9 @@ onMounted(() => {
     if (event == "SIGNED_IN") {
       userState.user = supabase.auth.user()
       getUserData()
+    } else if (event == "SIGNED_OUT") {
+      userState.user = null
+      userState.profiles = null
     }
   })
 

@@ -15,6 +15,7 @@ export interface Story {
   tagging: string[]
   image: string
   tags: Tag[]
+  created_at: string
 }
 
 export interface Tag {

@@ -5,7 +5,7 @@
       <label for="email">Email</label>
       <input type="email" name="email" id="email" v-model="form.email" />
       <label for="password">Password</label>
-      <input type="password" name="password" id="password" v-model="form.password" />
+      <input @keypress.enter="loginEmail" type="password" name="password" id="password" v-model="form.password" />
       <div class="grid grid-cols-2 mt-4 gap-2">
         <button @click="registerEmail" class="btn btn-pale">Register</button>
         <button @click="loginEmail" class="btn">Login</button>
@@ -22,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import { userState } from "@/store"
 import { supabase } from "@/supabase"
 import { ref } from "vue"
 import { useRouter } from "vue-router"
@@ -48,17 +49,14 @@ const registerEmail = async () => {
   }
 }
 const loginEmail = async () => {
-  const { user, session, error } = await supabase.auth.signIn(
-    {
-      email: form.value.email,
-      password: form.value.password,
-    },
-    { redirectTo: window.location.origin + "/redirect" }
-  )
+  const { user, session, error } = await supabase.auth.signIn({
+    email: form.value.email,
+    password: form.value.password,
+  })
   if (error) {
     errorText.value = error.message
   } else {
-    router.push({ name: "redirect" })
+    router.push("/redirect#login_type=email")
   }
 }
 const loginGoogle = async () => {

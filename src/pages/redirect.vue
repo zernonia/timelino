@@ -25,6 +25,7 @@ watch(
         router.replace({ name: "settings" })
       }
     }
-  }
+  },
+  { immediate: true }
 )
 </script>

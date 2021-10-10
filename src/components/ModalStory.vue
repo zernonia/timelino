@@ -297,7 +297,9 @@ const pickFile = (e: any) => {
 .vue-swatches__container:not(.vue-swatches--inline) {
   @apply shadow-md rounded-md;
 }
-
+.ql-editor {
+  @apply focus:outline-none;
+}
 .ql-editor h1 {
   @apply !text-2xl font-bold !leading-10;
 }
