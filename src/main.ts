@@ -4,18 +4,16 @@ import routes from "virtual:generated-pages"
 import { createRouter, createWebHistory } from "vue-router"
 import "virtual:windi.css"
 import "./assets/main.css"
+import { userState } from "./store"
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
 })
 router.beforeEach((to, from, next) => {
-  // console.log({ to, from })
-  // const access_token = to.hash.split("access_token=")[1]
-  // if (access_token) {
-  //   next({ name: "settings" })
+  // if (to.name == "login" && userState.user?.id) {
+  //   next({ name: "index" })
   // } else {
-  //   next()
   // }
   next()
 })
