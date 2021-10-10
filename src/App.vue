@@ -66,10 +66,11 @@ import { Profile } from "./interface"
 import { userState } from "./store"
 import { supabase } from "./supabase"
 import { useEventBus, useWindowSize, useResizeObserver } from "@vueuse/core"
-import { useRoute } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 import Logo from "@/assets/logo.png"
 
 const route = useRoute()
+const router = useRouter()
 const { width } = useWindowSize()
 const getUserData = async () => {
   if (userState.user && !userState.profiles?.id) {
@@ -104,6 +105,7 @@ const bus = useEventBus<string>("add-story")
 const triggerFetch = () => {
   isOpen.value = false
   bus.emit("done")
+  router.push({ name: "u-username", params: { username: userState.profiles?.username } })
 }
 
 // mobile menu
