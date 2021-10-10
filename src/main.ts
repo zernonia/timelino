@@ -11,10 +11,11 @@ const router = createRouter({
   routes,
 })
 router.beforeEach((to, from, next) => {
-  // if (to.name == "login" && userState.user?.id) {
-  //   next({ name: "index" })
-  // } else {
-  // }
+  if (to.name == "login" && userState.user?.id) {
+    next({ name: "home" })
+  } else if (to.name == "home" && !userState.user?.id) {
+    next({ name: "login" })
+  }
   next()
 })
 

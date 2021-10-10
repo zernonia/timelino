@@ -1,7 +1,12 @@
 <template>
   <div class="flex flex-col items-center justify-center">
     <nav class="px-8 py-4 w-full flex items-center justify-between">
-      <h1 @click="$router.push({ name: 'home' })" class="text-4xl font-bold text-blue-700 cursor-pointer">Timelimo</h1>
+      <h1
+        @click="$router.push({ name: userState.user?.id ? 'home' : 'index' })"
+        class="text-4xl font-bold text-blue-700 cursor-pointer"
+      >
+        Timelimo
+      </h1>
       <div v-if="userState.profiles?.username" class="flex items-center space-x-4">
         <Notification></Notification>
         <ProfileDropdown></ProfileDropdown>

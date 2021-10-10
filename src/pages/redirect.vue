@@ -20,7 +20,8 @@ watch(
       const { data, error } = await supabase.from<Profile>("profiles").select("*").eq("id", userState.user.id).single()
       userState.profiles = data
       if (data?.username) {
-        router.replace({ name: "u-username", params: { username: data?.username } })
+        // router.replace({ name: "u-username", params: { username: data?.username } })
+        router.replace({ name: "home" })
       } else {
         router.replace({ name: "settings" })
       }
