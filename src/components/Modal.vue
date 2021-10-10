@@ -21,5 +21,14 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, onUnmounted } from "vue"
+
 defineEmits(["close"])
+
+onMounted(() => {
+  document.documentElement.classList.add("modal-open")
+})
+onUnmounted(() => {
+  document.documentElement.classList.remove("modal-open")
+})
 </script>

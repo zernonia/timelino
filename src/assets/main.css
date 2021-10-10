@@ -37,3 +37,7 @@ textarea {
 .badge {
   @apply inline-flex items-center text-sm;
 }
+.modal-open {
+  padding-right: var(--scrollbarWidth);
+  @apply overflow-y-hidden;
+}

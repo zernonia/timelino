@@ -21,21 +21,35 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 import { Profile } from "./interface"
 import { userState } from "./store"
 import { supabase } from "./supabase"
-import { useEventBus } from "@vueuse/core"
+import { useEventBus, useWindowSize, useResizeObserver } from "@vueuse/core"
 
-userState.user = supabase.auth.user()
-console.log(userState)
+const { width } = useWindowSize()
 const getUserData = async () => {
   if (userState.user) {
     const { data, error } = await supabase.from<Profile>("profiles").select("*").eq("id", userState.user.id).single()
     if (!error) userState.profiles = data
   }
 }
-getUserData()
+onMounted(() => {
+  userState.user = supabase.auth.user()
+  getUserData()
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event == "SIGNED_IN") {
+      userState.user = supabase.auth.user()
+      getUserData()
+    }
+  })
+
+  useResizeObserver(document.documentElement, (entries) => {
+    const entry = entries[0]
+    const box = entry.contentRect
+    document.documentElement.style.setProperty("--scrollbarWidth", width.value - box.width + "px")
+  })
+})
 
 // modal
 const isOpen = ref(false)

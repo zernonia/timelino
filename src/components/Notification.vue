@@ -26,7 +26,7 @@
         <ul v-if="notification.length">
           <li v-for="item in notification" :key="item.id">
             <button
-              @click="$router.push({ name: 'u-username', params: { username: item.payload.username } })"
+              @click="onClickNotifications(item.payload.username)"
               class="w-full py-2 px-4 flex items-center focus:outline-transparent"
               :class="[item.read ? '' : 'bg-opacity-50 bg-blue-200 ']"
             >
@@ -49,6 +49,7 @@ import { userState } from "@/store"
 import { supabase } from "@/supabase"
 import { OnClickOutside } from "@vueuse/components"
 import { ref, watch, computed } from "vue"
+import { useRouter } from "vue-router"
 
 const isNew = ref(false)
 const hasNew = computed(() => (notification.value.findIndex((i) => i.read == false) == -1 ? false : true))
@@ -86,4 +87,10 @@ const subcription = supabase
     notification.value = [payload.new, ...notification.value.pop()]
   })
   .subscribe()
+
+const router = useRouter()
+const onClickNotifications = (username: string) => {
+  isDropdownOpen.value = false
+  router.push({ name: "u-username", params: { username } })
+}
 </script>

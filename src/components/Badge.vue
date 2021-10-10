@@ -1,5 +1,6 @@
 <template>
   <button class="badge" :class="computedColor" @click="emit('click')">
+    <slot></slot>
     {{ value }}
   </button>
 </template>

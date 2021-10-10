@@ -44,7 +44,7 @@
               <Badge v-for="tag in item.tags" :value="tag.name" :color="tag.color" @click="storyFilter(tag)"></Badge>
             </div>
             <div class="mt-2">
-              <div v-html="item.story"></div>
+              <div class="ql-editor px-0" v-html="item.story"></div>
             </div>
             <div v-if="isCurrentUser" class="helper hidden items-center absolute top-0 right-0">
               <button @click="buttonEdit(item.id)" class="btn-helper">
@@ -216,7 +216,7 @@ const getFollowerCount = async () => {
   width: 1.5rem;
 }
 .timeline-content {
-  @apply relative bottom-1;
+  @apply relative bottom-1 border-b-1;
 }
 .timeline-content:hover .helper {
   @apply flex;

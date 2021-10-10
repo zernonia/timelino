@@ -41,15 +41,18 @@
             'link',
           ]"
         />
-        <div class="flex items-center my-2 space-x-2">
+        <div class="flex items-center my-2 flex-wrap">
           <OnClickOutside @trigger="isDropdownOpen = false">
-            <div class="relative">
+            <div class="relative mb-2 mr-2">
               <button @click="isDropdownOpen = !isDropdownOpen" class="btn btn-pale inline-flex items-center text-sm">
                 <i-mdi:plus class="mr-2"></i-mdi:plus> Add Tag
               </button>
-              <div v-if="isDropdownOpen" class="bg-white absolute bottom-full mb-2 left-0 p-4 rounded-md shadow-md">
+              <div
+                v-if="isDropdownOpen"
+                class="bg-white absolute bottom-full mb-2 left-0 p-4 max-w-608px rounded-md shadow-md"
+              >
                 <ul class="flex">
-                  <li v-for="tag in taggingList" class="w-max mb-2 mr-2">
+                  <li v-for="tag in taggingList" :key="tag.name" class="w-max mb-2 mr-2">
                     <Badge :value="tag.name" :color="tag.color" @click="addTag(tag)"></Badge>
                   </li>
                 </ul>
@@ -69,12 +72,17 @@
               </div>
             </div>
           </OnClickOutside>
-          <div v-if="tagging[0]">
-            <Badge v-for="(tag, index) in tagging" :value="tag.name" :color="tag.color" @click="removeTag(index)">
-              <i-mdi:minus class="mr-2"></i-mdi:minus>
-              {{ tag }}
-            </Badge>
-          </div>
+          <Badge
+            v-if="tagging[0]"
+            v-for="(tag, index) in tagging"
+            :key="tag.name"
+            :value="tag.name"
+            :color="tag.color"
+            @click="removeTag(index)"
+            class="mb-2 mr-2"
+          >
+            <i-mdi:minus class="mr-2"></i-mdi:minus>
+          </Badge>
         </div>
       </div>
       <footer class="flex justify-end"><button class="btn" @click="submit">Submit</button></footer>
@@ -189,7 +197,7 @@ const addTag = (tag: Tag) => {
   }
 }
 const removeTag = (i: number) => {
-  tagging.value = tagging.value.splice(i, 1)
+  tagging.value.splice(i, 1)
 }
 
 // discard changes modal
@@ -237,5 +245,30 @@ const triggerDiscard = () => {
 }
 .vue-swatches__container:not(.vue-swatches--inline) {
   @apply shadow-md rounded-md;
+}
+.ql-editor h1 {
+  @apply !text-2xl font-bold !leading-10;
+}
+.ql-editor p {
+  @apply py-2 leading-6;
+}
+.ql-editor blockquote {
+  @apply !my-2 !pl-4 !border-gray-200 !border-l-4;
+}
+.ql-editor pre.ql-syntax {
+  @apply !bg-gray-200 !text-gray-900 my-4 p-2 rounded-md;
+}
+.ql-editor ol,
+.ql-editor ul {
+  @apply py-2;
+}
+.ql-editor li {
+  @apply py-0.5;
+}
+.ql-snow .ql-tooltip {
+  @apply rounded-md shadow-md border-none;
+}
+.ql-snow .ql-tooltip input {
+  @apply !text-base !px-2  !h-8;
 }
 </style>
