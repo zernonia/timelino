@@ -9,19 +9,19 @@
         class="dropdown absolute top-full right-0 mt-2 w-max rounded-md shadow-md py-2 !z-10 bg-white"
       >
         <li>
-          <button @click="onClickPage()" class="w-full py-2 px-4 flex items-center focus:outline-transparent">
+          <button @click="onClickPage()" class="w-full py-2 px-6 flex items-center focus:outline-transparent">
             <i-mdi:account class="mr-2"></i-mdi:account>
             My page
           </button>
         </li>
         <li>
-          <button @click="onClickSetting()" class="w-full py-2 px-4 flex items-center focus:outline-transparent">
+          <button @click="onClickSetting()" class="w-full py-2 px-6 flex items-center focus:outline-transparent">
             <i-mdi:cog class="mr-2"></i-mdi:cog>
             Settings
           </button>
         </li>
         <li>
-          <button @click="onClickLogout()" class="w-full py-2 px-4 flex items-center focus:outline-transparent">
+          <button @click="onClickLogout()" class="w-full py-2 px-6 flex items-center focus:outline-transparent">
             <i-mdi:logout-variant class="mr-2"></i-mdi:logout-variant>
             Log out
           </button>

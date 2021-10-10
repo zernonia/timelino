@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col items-center justify-center">
-    <nav class="px-6 sm:px-8 py-2 sm:py-4 w-full flex items-center justify-between">
+  <div class="flex flex-col items-center justify-center" v-if="$route.name != 'index'">
+    <nav class="px-6 sm:px-8 py-4 w-full flex items-center justify-between">
       <h1
         @click="$router.push({ name: userState.user?.id ? 'home' : 'index' })"
         class="text-2xl sm:text-4xl font-bold text-blue-700 cursor-pointer"
@@ -53,6 +53,9 @@
     <transition name="fade">
       <ModalStory v-if="isOpen" @close="isOpen = false" @success="triggerFetch"></ModalStory>
     </transition>
+  </div>
+  <div v-else>
+    <router-view></router-view>
   </div>
 </template>
 

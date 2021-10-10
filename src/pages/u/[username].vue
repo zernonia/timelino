@@ -38,41 +38,44 @@
           </button>
         </div>
         <div class="relative mt-4 sm:mt-8">
-          <div
-            class="relative border-l border-gray-200 timeline-track"
-            v-for="(value, key) in groupUserStory"
-            :key="key"
-          >
-            <div class="hidden lg:block absolute top-0 -left-6 transform -translate-x-full text-sm text-gray-400">
-              {{ dayjs(key).format("MMM DD, YYYY") }}
-            </div>
-            <div v-for="item in value" :key="item.id" class="ml-4 sm:ml-10 mt-4 timeline-content">
-              <div class="block lg:hidden text-sm text-gray-400 mb-2">
-                {{ dayjs(item.date).format("MMM DD, YYYY") }}
+          <div v-if="Object.keys(groupUserStory).length">
+            <div
+              class="relative border-l border-gray-200 timeline-track"
+              v-for="(value, key) in groupUserStory"
+              :key="key"
+            >
+              <div class="hidden lg:block absolute top-0 -left-6 transform -translate-x-full text-sm text-gray-400">
+                {{ dayjs(key).format("MMM DD, YYYY") }}
               </div>
-              <div v-if="item.tags[0] != null" class="flex items-center space-x-2">
-                <Badge
-                  v-for="tag in item.tags"
-                  :key="tag.name"
-                  :value="tag.name"
-                  :color="tag.color"
-                  @click="storyFilter(tag)"
-                ></Badge>
-              </div>
-              <div class="mt-2">
-                <div class="ql-editor px-0" v-html="item.story"></div>
-                <img v-if="item.image" class="w-full rounded-xl" :src="item.image" alt="" />
-              </div>
-              <div v-if="isCurrentUser" class="helper hidden items-center absolute top-0 right-0">
-                <button @click="buttonEdit(item.id)" class="btn-helper">
-                  <i-mdi:square-edit-outline></i-mdi:square-edit-outline>
-                </button>
-                <button @click="buttonDelete(item.id)" class="btn-helper">
-                  <i-mdi:trash-can-outline></i-mdi:trash-can-outline>
-                </button>
+              <div v-for="item in value" :key="item.id" class="ml-4 sm:ml-10 mt-4 timeline-content">
+                <div class="block lg:hidden text-sm text-gray-400 mb-2">
+                  {{ dayjs(item.date).format("MMM DD, YYYY") }}
+                </div>
+                <div v-if="item.tags[0] != null" class="flex items-center space-x-2">
+                  <Badge
+                    v-for="tag in item.tags"
+                    :key="tag.name"
+                    :value="tag.name"
+                    :color="tag.color"
+                    @click="storyFilter(tag)"
+                  ></Badge>
+                </div>
+                <div class="mt-2">
+                  <div class="ql-editor px-0" v-html="item.story"></div>
+                  <img v-if="item.image" class="w-full rounded-xl" :src="item.image" alt="" />
+                </div>
+                <div v-if="isCurrentUser" class="helper hidden items-center absolute top-0 right-0">
+                  <button @click="buttonEdit(item.id)" class="btn-helper">
+                    <i-mdi:square-edit-outline></i-mdi:square-edit-outline>
+                  </button>
+                  <button @click="buttonDelete(item.id)" class="btn-helper">
+                    <i-mdi:trash-can-outline></i-mdi:trash-can-outline>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+          <div v-else class="text-gray-400">No story yet...</div>
         </div>
       </div>
     </div>
@@ -250,7 +253,7 @@ const getFollowerCount = async () => {
   width: 1.5rem;
 }
 .timeline-content {
-  @apply relative bottom-1;
+  @apply relative sm:bottom-1;
 }
 .timeline-content:hover .helper {
   @apply flex;
