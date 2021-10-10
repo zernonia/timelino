@@ -3,7 +3,7 @@
     <div v-if="userData && !isLoading">
       <div>
         <div class="flex items-center justify-between">
-          <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden">
+          <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-blue-700">
             <img :src="userData.avatar_url" class="w-full h-full object-cover" />
           </div>
           <div v-if="isCurrentUser">
@@ -28,7 +28,10 @@
 
       <div class="">
         <div class="flex items-center">
-          <h1 class="text-2xl font-bold text-gray-900">Story</h1>
+          <h1 class="text-2xl font-bold text-gray-900 inline-flex items-center">
+            <i-mdi:star class="text-blue-700 mr-2 text-xl"></i-mdi:star>
+            Story
+          </h1>
           <button
             v-if="storyTagFilter"
             @click="storyFilter()"

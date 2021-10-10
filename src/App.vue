@@ -3,9 +3,10 @@
     <nav class="px-6 sm:px-8 py-4 w-full flex items-center justify-between">
       <h1
         @click="$router.push({ name: userState.user?.id ? 'home' : 'index' })"
-        class="text-2xl sm:text-4xl font-bold text-blue-700 cursor-pointer"
+        class="text-2xl inline-flex items-center sm:text-4xl font-bold text-blue-700 cursor-pointer"
       >
-        Timelimo
+        <img class="h-12 mr-4" :src="Logo" alt="" />
+        Timelino
       </h1>
       <div v-if="userState.profiles?.username">
         <div class="hidden sm:flex items-center space-x-4">
@@ -66,6 +67,7 @@ import { userState } from "./store"
 import { supabase } from "./supabase"
 import { useEventBus, useWindowSize, useResizeObserver } from "@vueuse/core"
 import { useRoute } from "vue-router"
+import Logo from "@/assets/logo.png"
 
 const route = useRoute()
 const { width } = useWindowSize()

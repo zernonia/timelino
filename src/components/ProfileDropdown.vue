@@ -10,20 +10,20 @@
       >
         <li>
           <button @click="onClickPage()" class="w-full py-2 px-6 flex items-center focus:outline-transparent">
-            <i-mdi:account class="mr-2"></i-mdi:account>
-            My page
+            <i-mdi:account class="text-blue-700"></i-mdi:account>
+            <p class="mx-2">My page</p>
           </button>
         </li>
         <li>
           <button @click="onClickSetting()" class="w-full py-2 px-6 flex items-center focus:outline-transparent">
-            <i-mdi:cog class="mr-2"></i-mdi:cog>
-            Settings
+            <i-mdi:cog class="text-blue-700"></i-mdi:cog>
+            <p class="mx-2">Settings</p>
           </button>
         </li>
         <li>
           <button @click="onClickLogout()" class="w-full py-2 px-6 flex items-center focus:outline-transparent">
-            <i-mdi:logout-variant class="mr-2"></i-mdi:logout-variant>
-            Log out
+            <i-mdi:logout-variant class="text-blue-700"></i-mdi:logout-variant>
+            <p class="mx-2">Log out</p>
           </button>
         </li>
       </ul>

@@ -5,8 +5,8 @@
         Hi, <span v-if="userState.profiles?.id">{{ userState.profiles?.full_name }}</span>
       </h2>
       <div class="mt-4 md:mt-8">
-        <h3 class="text-2xl font-bold text-gray-900 inline-flex items-center">
-          <i-mdi:star class="text-xl mr-2 text-gray-300"></i-mdi:star>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 inline-flex items-center">
+          <i-mdi:star class="text-xl mr-2 text-blue-700"></i-mdi:star>
           Suggested user
         </h3>
         <ul class="mt-4 flex flex-col space-y-4">
