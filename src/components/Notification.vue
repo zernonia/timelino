@@ -9,7 +9,7 @@
           </span>
         </span>
       </button>
-      <div v-if="isDropdownOpen" class="absolute top-full right-0 mt-2 w-80 rounded-md shadow-md py-4 !z-10 bg-white">
+      <div v-if="isDropdownOpen" class="absolute top-full right-0 mt-2 w-80 rounded-md shadow-md py-2 !z-10 bg-white">
         <ul v-if="notification.length">
           <li v-for="item in notification" :key="item.id">
             <button

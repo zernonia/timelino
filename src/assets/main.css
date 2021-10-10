@@ -44,3 +44,6 @@ textarea {
   padding-right: var(--scrollbarWidth);
   @apply overflow-y-hidden;
 }
+.error {
+  @apply mt-2 text-red-500;
+}

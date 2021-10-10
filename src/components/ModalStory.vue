@@ -1,7 +1,7 @@
 <template>
   <Modal @close="isOpen = true">
     <div
-      class="w-full h-min max-w-screen-sm bg-white p-6 flex flex-col rounded-lg shadow-md overflow-hidden"
+      class="w-full h-min max-w-screen-sm bg-white p-6 flex flex-col rounded-lg shadow-md"
       style="max-height: calc(100vh - 210px)"
     >
       <header class="flex justify-center relative">
@@ -47,6 +47,7 @@
             'link',
           ]"
         />
+        <div class="error" v-if="errorText">* {{ errorText }}</div>
         <div class="flex items-center my-2 flex-wrap">
           <OnClickOutside @trigger="isDropdownOpen = false">
             <div class="relative mb-2 mr-2">
@@ -126,6 +127,7 @@ const p = defineProps({
 })
 const emit = defineEmits(["close", "success"])
 const editor = ref()
+const errorText = ref("")
 
 const date = ref(new Date())
 const dateLimit = ref(new Date())
@@ -156,7 +158,6 @@ const fetchData = async () => {
 fetchData()
 
 const submit = async () => {
-  console.log(date.value)
   const { data, error } = await supabase.from("stories").upsert({
     id: p.id ? p.id : undefined,
     user_id: userState.user?.id,
@@ -165,7 +166,11 @@ const submit = async () => {
     story: content.value,
     tagging: tagging.value.map((i) => i.id),
   })
-  if (!error) emit("success")
+  if (!error) {
+    emit("success")
+  } else {
+    errorText.value = "Story cannot be empty"
+  }
 }
 
 // calendar
@@ -292,6 +297,7 @@ const pickFile = (e: any) => {
 .vue-swatches__container:not(.vue-swatches--inline) {
   @apply shadow-md rounded-md;
 }
+
 .ql-editor h1 {
   @apply !text-2xl font-bold !leading-10;
 }
@@ -311,10 +317,16 @@ const pickFile = (e: any) => {
 .ql-editor li {
   @apply py-0.5;
 }
+.ql-snow .ql-hidden {
+  @apply !hidden;
+}
 .ql-snow .ql-tooltip {
-  @apply rounded-md shadow-md border-none;
+  @apply rounded-md shadow-md border-none z-10 flex items-center p-2;
 }
 .ql-snow .ql-tooltip input {
   @apply !text-base !px-2  !h-8;
+}
+.ql-editor.ql-blank::before {
+  @apply mt-2;
 }
 </style>

@@ -1,63 +1,69 @@
 <template>
   <div class="w-screen-sm">
-    <div v-if="userData">
-      <div class="flex items-center justify-between">
-        <img :src="userData.avatar_url" class="w-32 rounded-full" />
-        <div v-if="isCurrentUser">
-          <button @click="$router.push({ name: 'settings' })" class="btn btn-white">Settings</button>
+    <div v-if="userData && !isLoading">
+      <div>
+        <div class="flex items-center justify-between">
+          <img :src="userData.avatar_url" class="w-32 rounded-full" />
+          <div v-if="isCurrentUser">
+            <button @click="$router.push({ name: 'settings' })" class="btn btn-white">Settings</button>
+          </div>
+          <div v-else>
+            <button v-if="!isFollowing" @click="followUser" class="btn btn-white">Follow</button>
+            <button v-else @click="unfollowUser" class="btn btn-white">Following</button>
+          </div>
         </div>
-        <div v-else>
-          <button v-if="!isFollowing" @click="followUser" class="btn btn-white">Follow</button>
-          <button v-else @click="unfollowUser" class="btn btn-white">Following</button>
+        <h1 class="mt-2 text-2xl text-gray-900 font-bold">{{ userData.full_name }}</h1>
+        <h2 class="text-gray-400">@{{ userData.username }}</h2>
+        <p class="mt-4">{{ userData.introduction }}</p>
+        <ul>
+          <li v-for="link in userData.links">
+            {{ link }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="h-1px w-full bg-gray-200 my-8"></div>
+
+      <div class="mt-6">
+        <div class="flex items-center">
+          <h1 class="text-2xl font-bold text-gray-900">Story</h1>
+          <button
+            v-if="storyTagFilter"
+            @click="storyFilter()"
+            class="ml-4 text-gray-300 inline-flex p-1 focus:outline-transparent"
+          >
+            <i-mdi:filter-off></i-mdi:filter-off>
+          </button>
+        </div>
+        <div class="relative mt-8">
+          <div class="relative border-l border-gray-200 timeline-track mt-4" v-for="(value, key) in groupUserStory">
+            <div class="absolute top-0 -left-6 transform -translate-x-full text-sm text-gray-400">
+              {{ dayjs(key).format("MMM DD, YYYY") }}
+            </div>
+            <div v-for="item in value" :key="item.id" class="ml-10 mt-4 timeline-content">
+              <div v-if="item.tags[0] != null" class="flex items-center space-x-2">
+                <Badge v-for="tag in item.tags" :value="tag.name" :color="tag.color" @click="storyFilter(tag)"></Badge>
+              </div>
+              <div class="mt-2">
+                <div class="ql-editor px-0" v-html="item.story"></div>
+                <img v-if="item.image" class="w-full rounded-xl" :src="item.image" alt="" />
+              </div>
+              <div v-if="isCurrentUser" class="helper hidden items-center absolute top-0 right-0">
+                <button @click="buttonEdit(item.id)" class="btn-helper">
+                  <i-mdi:square-edit-outline></i-mdi:square-edit-outline>
+                </button>
+                <button @click="buttonDelete(item.id)" class="btn-helper">
+                  <i-mdi:trash-can-outline></i-mdi:trash-can-outline>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <h1 class="mt-2 text-2xl text-gray-900 font-bold">{{ userData.full_name }}</h1>
-      <h2 class="text-gray-400">@{{ userData.username }}</h2>
-      <p class="mt-4">{{ userData.introduction }}</p>
-      <ul>
-        <li v-for="link in userData.links">
-          {{ link }}
-        </li>
-      </ul>
     </div>
-
-    <div class="h-1px w-full bg-gray-200 my-8"></div>
-
-    <div class="mt-6">
-      <div class="flex items-center">
-        <h1 class="text-2xl font-bold text-gray-900">Story</h1>
-        <button
-          v-if="storyTagFilter"
-          @click="storyFilter()"
-          class="ml-4 text-gray-300 inline-flex p-1 focus:outline-transparent"
-        >
-          <i-mdi:filter-off></i-mdi:filter-off>
-        </button>
-      </div>
-      <div class="relative mt-8">
-        <div class="relative border-l border-gray-200 timeline-track mt-4" v-for="(value, key) in groupUserStory">
-          <div class="absolute top-0 -left-6 transform -translate-x-full text-sm text-gray-400">
-            {{ dayjs(key).format("MMM DD, YYYY") }}
-          </div>
-          <div v-for="item in value" :key="item.id" class="ml-10 mt-4 timeline-content">
-            <div v-if="item.tags[0] != null" class="flex items-center space-x-2">
-              <Badge v-for="tag in item.tags" :value="tag.name" :color="tag.color" @click="storyFilter(tag)"></Badge>
-            </div>
-            <div class="mt-2">
-              <div class="ql-editor px-0" v-html="item.story"></div>
-              <img v-if="item.image" class="w-full rounded-xl" :src="item.image" alt="" />
-            </div>
-            <div v-if="isCurrentUser" class="helper hidden items-center absolute top-0 right-0">
-              <button @click="buttonEdit(item.id)" class="btn-helper">
-                <i-mdi:square-edit-outline></i-mdi:square-edit-outline>
-              </button>
-              <button @click="buttonDelete(item.id)" class="btn-helper">
-                <i-mdi:trash-can-outline></i-mdi:trash-can-outline>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div v-else-if="!isLoading" class="flex flex-col items-center space-y-2">
+      <h2 class="text-2xl text-gray-900 font-bold">User not found...</h2>
+      <button class="btn" @click="$router.push({ name: 'index' })">Home</button>
     </div>
 
     <ModalStory v-if="isOpen" @close="isOpen = false" @success="triggerFetch" :id="modalId"></ModalStory>
@@ -76,6 +82,7 @@ import { watchOnce, useEventBus } from "@vueuse/core"
 
 userState
 const route = useRoute()
+const isLoading = ref(true)
 const isCurrentUser = computed(() => userState.profiles?.username == route.params.username)
 const userData = ref<Profile | null>()
 const getUserData = async () => {
@@ -85,6 +92,7 @@ const getUserData = async () => {
     .eq("username", route.params.username)
     .single()
   if (!error) userData.value = data
+  isLoading.value = false
 }
 getUserData()
 

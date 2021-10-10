@@ -29,8 +29,10 @@
     <input type="text" name="full_name" id="full_name" v-model="form.full_name" />
     <label for="introduction">Introduction</label>
     <textarea name="introduction" id="introduction" rows="4" v-model="form.introduction"></textarea>
-    <div class="flex justify-end">
-      <button class="btn mt-4" @click="submit">Submit</button>
+    <div class="error" v-if="errorText">* {{ errorText }}</div>
+    <div class="flex space-x-2 justify-end mt-4">
+      <button class="btn btn-pale" v-if="$router.options.routes[0].path == '/u'" @click="router.back()">Back</button>
+      <button class="btn" @click="submit">Submit</button>
     </div>
   </div>
 </template>
@@ -43,6 +45,7 @@ import { ref } from "vue"
 import { useRouter } from "vue-router"
 
 const router = useRouter()
+const errorText = ref("")
 const form = ref({
   username: "",
   avatar_url: "",
@@ -59,6 +62,15 @@ const submit = async () => {
     if (!error) {
       userState.profiles = data
       router.push({ name: "u-username", params: { username: data?.username } })
+    } else {
+      switch (error.code) {
+        case "23514":
+          errorText.value = "Username required at least 6 characters"
+        case "23505":
+          errorText.value = "That username is unavailable"
+        default:
+          errorText.value = error.message
+      }
     }
   }
 }
