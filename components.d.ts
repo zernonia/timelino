@@ -10,6 +10,8 @@ declare module 'vue' {
     'IMdi:account': typeof import('~icons/mdi/account')['default']
     'IMdi:arrowDownThick': typeof import('~icons/mdi/arrow-down-thick')['default']
     'IMdi:bell': typeof import('~icons/mdi/bell')['default']
+    'IMdi:check': typeof import('~icons/mdi/check')['default']
+    'IMdi:checkBold': typeof import('~icons/mdi/check-bold')['default']
     'IMdi:clock': typeof import('~icons/mdi/clock')['default']
     'IMdi:cog': typeof import('~icons/mdi/cog')['default']
     'IMdi:filterOff': typeof import('~icons/mdi/filter-off')['default']
