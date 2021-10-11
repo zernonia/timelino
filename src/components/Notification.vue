@@ -17,7 +17,7 @@
               class="w-full py-2 px-4 flex items-center focus:outline-transparent"
               :class="[item.read ? '' : 'bg-opacity-50 bg-blue-200 ']"
             >
-              <img class="w-8 h-8 object-cover rounded-full" :src="item.payload.avatar_url" alt="" />
+              <img class="w-8 h-8 object-cover rounded-full flex-shrink-0" :src="item.payload.avatar_url" alt="" />
               <div class="flex items-center text-sm ml-2 truncate">
                 <h5 class="font-semibold text-blue-700">@{{ item.payload.username }}</h5>
                 <p class="truncate ml-1">started following you.</p>

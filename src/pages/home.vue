@@ -11,7 +11,17 @@
         </h3>
         <ul class="mt-4 flex flex-col space-y-4">
           <button
-            class="w-full text-left p-4 shadow-transparent transition hover:shadow-md focus:outline-transparent"
+            class="
+              w-full
+              text-left
+              px-4
+              py-2
+              bg-opacity-50 bg-blue-200
+              rounded-lg
+              transition
+              hover:bg-opacity-30
+              focus:outline-transparent
+            "
             v-for="user in userList"
             :key="user.id"
             @click="$router.push({ name: 'u-username', params: { username: user.username } })"
@@ -22,7 +32,7 @@
               </div>
               <div class="ml-4 flex flex-col overflow-hidden">
                 <h5 class="text font-bold text-blue-700">{{ user.full_name }}</h5>
-                <p class="text-sm text-gray-500 truncate">{{ user.introduction }}</p>
+                <p class="text-sm text-gray-900 truncate">{{ user.introduction }}</p>
               </div>
             </li>
           </button>
@@ -53,8 +63,8 @@
               <img :src="value.user_data?.avatar_url" class="object-cover" alt="" />
             </div>
             <div class="ml-4 flex flex-col">
-              <h5 class="text font-bold text-blue-700">{{ value.user_data?.full_name }}</h5>
-              <p class="inline-flex items-center text-sm text-gray-500 truncate">
+              <h5 class="text font-bold text-blue-700 text-left">{{ value.user_data?.full_name }}</h5>
+              <p class="inline-flex items-center text-sm text-left text-gray-500 truncate">
                 <i-mdi:clock class="mr-2 w-4 h-4"></i-mdi:clock>
                 {{ dayjs(value.date).format("MMM DD, YYYY") }}
               </p>
