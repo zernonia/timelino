@@ -101,7 +101,7 @@ import dayjs from "dayjs"
 
 const userList = ref<any[]>([])
 const getUserToFollow = async () => {
-  const { data, error } = await supabase.rpc("get_suggested_user").limit(5)
+  const { data, error } = await supabase.rpc("get_suggested_user").limit(5).neq("username", null)
   if (data) userList.value = data
 }
 
