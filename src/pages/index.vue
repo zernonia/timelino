@@ -5,7 +5,7 @@
       <h1 class="mt-4 md:mt-8 text-blue-700 font-bold text-4xl md:text-5xl text-center">Timelino</h1>
       <div class="mt-2 text-gray-400 md:text-lg flex items-center flex-nowrap">
         <p>—</p>
-        <p class="px-2 text-center">Twitter without toxic and negativity</p>
+        <p class="px-2 text-center">Twitter-liked platform without toxic and negativity</p>
         <p>—</p>
       </div>
       <button @click="$router.push({ name: 'login' })" class="btn my-4">Join now</button>
