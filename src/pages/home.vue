@@ -1,6 +1,6 @@
 <template>
   <div class="w-full mt-8 max-w-screen-lg flex flex-col md:flex-row px-6">
-    <div class="w-full flex flex-col mr-4 overflow-hidden sm:sticky top-6 h-max">
+    <div class="w-full flex flex-col sm:mr-10 overflow-hidden sm:sticky top-6 h-max">
       <h2 class="text-2xl md:text-3xl font-bold text-gray-900">
         Hi, <span v-if="userState.profiles?.id">{{ userState.profiles?.full_name }}</span>
       </h2>
