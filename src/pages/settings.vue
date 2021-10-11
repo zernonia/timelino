@@ -32,7 +32,7 @@
     <div class="error" v-if="errorText">* {{ errorText }}</div>
     <div class="flex space-x-2 justify-end mt-4">
       <button class="btn btn-pale" v-if="$router.options.routes[0].path == '/u'" @click="router.back()">Back</button>
-      <button class="btn" @click="submit">Submit</button>
+      <button :disabled="isUploading" class="btn" @click="submit">Submit</button>
     </div>
   </div>
 </template>
@@ -85,12 +85,14 @@ const getData = async () => {
 getData()
 
 // image upload
+const isUploading = ref(false)
 const target = ref()
 const pickFile = (e: any) => {
   let files = target.value?.files as FileList
   const file = files[0]
   let reader = new FileReader()
   reader.onload = async (e) => {
+    isUploading.value = true
     const result = e.target?.result as string
     let r = (Math.random() + 1).toString(36).substring(7)
     form.value.avatar_url = result
@@ -100,7 +102,12 @@ const pickFile = (e: any) => {
       const { publicURL } = supabase.storage.from("avatars").getPublicUrl(file_name)
       if (publicURL) {
         form.value.avatar_url = publicURL
+        isUploading.value = false
       }
+    }
+    if (error) {
+      errorText.value = error.message
+      isUploading.value = false
     }
   }
   reader.readAsDataURL(file)

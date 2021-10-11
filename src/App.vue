@@ -51,9 +51,7 @@
       </div>
     </nav>
     <router-view></router-view>
-    <transition name="fade">
-      <ModalStory v-if="isOpen" @close="isOpen = false" @success="triggerFetch"></ModalStory>
-    </transition>
+    <ModalStory v-if="isOpen" @close="isOpen = false" @success="triggerFetch"></ModalStory>
   </div>
   <div v-else>
     <router-view></router-view>
