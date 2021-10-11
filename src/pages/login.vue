@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-col w-auto items-center mt-20">
+  <div class="flex flex-col w-auto items-center mt-20 w-76">
     <h1 class="text-3xl font-bold text-gray-900">Login</h1>
-    <div class="flex flex-col">
+    <div class="flex flex-col w-76">
       <label for="email">Email</label>
-      <input type="email" name="email" id="email" v-model="form.email" />
+      <input class="w-full" type="email" name="email" id="email" v-model="form.email" />
       <label for="password">Password</label>
       <input @keypress.enter="loginEmail" type="password" name="password" id="password" v-model="form.password" />
       <div class="grid grid-cols-2 mt-4 gap-2">

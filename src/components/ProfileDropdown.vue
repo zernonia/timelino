@@ -52,6 +52,8 @@ const onClickSetting = () => {
 const onClickLogout = async () => {
   isDropdownOpen.value = false
   const { error } = await supabase.auth.signOut()
+  userState.user = null
+  userState.profiles = null
   if (!error) router.push({ name: "login" })
 }
 </script>
