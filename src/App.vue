@@ -1,13 +1,18 @@
 <template>
   <div class="flex flex-col items-center justify-center" v-if="$route.name != 'index'">
     <nav class="px-6 sm:px-8 py-4 w-full flex items-center justify-between">
-      <h1
-        @click="$router.push({ name: userState.user?.id ? 'home' : 'index' })"
-        class="text-2xl inline-flex items-center sm:text-4xl font-bold text-blue-700 cursor-pointer"
-      >
-        <img class="h-12 mr-4" :src="Logo" alt="" />
-        Timelino
-      </h1>
+      <div class="flex items-center">
+        <router-link
+          :to="{ name: userState.user?.id ? 'home' : 'index' }"
+          class="text-2xl inline-flex items-center sm:text-4xl font-bold text-blue-700 cursor-pointer"
+        >
+          <img class="h-12 sm:mr-4" :src="Logo" alt="" />
+          <span class="hidden sm:block"> Timelino </span>
+        </router-link>
+        <a href="https://github.com/zernonia/timelino" target="_blank" class="ml-4 btn-icon text-xl"
+          ><i-mdi:github></i-mdi:github
+        ></a>
+      </div>
       <div v-if="userState.profiles?.username">
         <div class="hidden sm:flex items-center space-x-4">
           <Notification></Notification>

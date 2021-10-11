@@ -9,16 +9,19 @@
         class="dropdown absolute top-full right-0 mt-2 w-max rounded-md shadow-md py-2 !z-10 bg-white"
       >
         <li>
-          <button @click="onClickPage()" class="w-full py-2 px-6 flex items-center focus:outline-transparent">
+          <router-link
+            :to="{ name: 'u-username', params: { username: userState.profiles?.username } }"
+            class="w-full py-2 px-6 flex items-center focus:outline-transparent"
+          >
             <i-mdi:account class="text-blue-700"></i-mdi:account>
             <p class="mx-2">My page</p>
-          </button>
+          </router-link>
         </li>
         <li>
-          <button @click="onClickSetting()" class="w-full py-2 px-6 flex items-center focus:outline-transparent">
+          <router-link :to="{ name: 'settings' }" class="w-full py-2 px-6 flex items-center focus:outline-transparent">
             <i-mdi:cog class="text-blue-700"></i-mdi:cog>
             <p class="mx-2">Settings</p>
-          </button>
+          </router-link>
         </li>
         <li>
           <button @click="onClickLogout()" class="w-full py-2 px-6 flex items-center focus:outline-transparent">
@@ -35,20 +38,14 @@
 import { userState } from "@/store"
 import { supabase } from "@/supabase"
 import { OnClickOutside } from "@vueuse/components"
-import { ref } from "vue"
-import { useRouter } from "vue-router"
+import { ref, watch } from "vue"
+import { useRoute, useRouter } from "vue-router"
 
 const isDropdownOpen = ref(false)
 
+const route = useRoute()
 const router = useRouter()
-const onClickPage = () => {
-  isDropdownOpen.value = false
-  router.push({ name: "u-username", params: { username: userState.profiles?.username } })
-}
-const onClickSetting = () => {
-  isDropdownOpen.value = false
-  router.push({ name: "settings" })
-}
+
 const onClickLogout = async () => {
   isDropdownOpen.value = false
   const { error } = await supabase.auth.signOut()
@@ -56,9 +53,17 @@ const onClickLogout = async () => {
   userState.profiles = null
   if (!error) router.push({ name: "login" })
 }
+
+watch(
+  () => route.path,
+  () => {
+    isDropdownOpen.value = false
+  }
+)
 </script>
 
 <style>
+.dropdown a,
 .dropdown button {
   @apply bg-white transition hover:bg-blue-100 hover:text-blue-700 bg-opacity-50 text-sm;
 }

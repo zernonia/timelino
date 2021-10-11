@@ -10,74 +10,80 @@
           Suggested user
         </h3>
         <ul class="mt-4 flex flex-col space-y-4">
-          <button
-            class="
-              w-full
-              text-left
-              px-4
-              py-2
-              bg-opacity-50 bg-blue-200
-              rounded-lg
-              transition
-              hover:bg-opacity-30
-              focus:outline-transparent
-            "
+          <router-link
+            :to="{ name: 'u-username', params: { username: user.username } }"
             v-for="user in userList"
             :key="user.id"
-            @click="$router.push({ name: 'u-username', params: { username: user.username } })"
           >
-            <li class="flex items-center w-full">
-              <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
-                <img :src="user.avatar_url" alt="" />
-              </div>
-              <div class="ml-4 flex flex-col overflow-hidden">
-                <h5 class="text font-bold text-blue-700">{{ user.full_name }}</h5>
-                <p class="text-sm text-gray-900 truncate">{{ user.introduction }}</p>
-              </div>
-            </li>
-          </button>
+            <div
+              class="
+                w-full
+                text-left
+                px-4
+                py-2
+                bg-opacity-50 bg-blue-200
+                rounded-lg
+                transition
+                hover:bg-opacity-30
+                focus:outline-transparent
+              "
+            >
+              <li class="flex items-center w-full">
+                <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                  <img :src="user.avatar_url" alt="" />
+                </div>
+                <div class="ml-4 flex flex-col overflow-hidden">
+                  <h5 class="text font-bold text-blue-700">{{ user.full_name }}</h5>
+                  <p class="text-sm text-gray-900 truncate">{{ user.introduction }}</p>
+                </div>
+              </li>
+            </div>
+          </router-link>
         </ul>
       </div>
     </div>
     <div class="mt-6 md:mt-0 w-full max-w-screen-sm lg:flex-shrink-0">
       <div v-if="storyList.length">
-        <button
-          @click="$router.push({ name: 'u-username', params: { username: value.user_data?.username } })"
-          class="
-            relative
-            border border-gray-200
-            rounded-lg
-            p-6
-            mb-8
-            w-full
-            shadow-transparent
-            transition
-            hover:shadow-md
-            focus:outline-transparent
-          "
+        <router-link
+          :to="{ name: 'u-username', params: { username: value.user_data?.username } }"
           v-for="value in storyList"
           :key="value.id"
         >
-          <div class="flex items-center">
-            <div class="w-12 h-12 rounded-full overflow-hidden">
-              <img :src="value.user_data?.avatar_url" class="object-cover" alt="" />
+          <div
+            class="
+              relative
+              border border-gray-200
+              rounded-lg
+              p-6
+              mb-8
+              w-full
+              shadow-transparent
+              transition
+              hover:shadow-md
+              focus:outline-transparent
+            "
+          >
+            <div class="flex items-center">
+              <div class="w-12 h-12 rounded-full overflow-hidden">
+                <img :src="value.user_data?.avatar_url" class="object-cover" alt="" />
+              </div>
+              <div class="ml-4 flex flex-col">
+                <h5 class="text font-bold text-blue-700 text-left">{{ value.user_data?.full_name }}</h5>
+                <p class="inline-flex items-center text-sm text-left text-gray-500 truncate">
+                  <i-mdi:clock class="mr-2 w-4 h-4"></i-mdi:clock>
+                  {{ dayjs(value.date).format("MMM DD, YYYY") }}
+                </p>
+              </div>
             </div>
-            <div class="ml-4 flex flex-col">
-              <h5 class="text font-bold text-blue-700 text-left">{{ value.user_data?.full_name }}</h5>
-              <p class="inline-flex items-center text-sm text-left text-gray-500 truncate">
-                <i-mdi:clock class="mr-2 w-4 h-4"></i-mdi:clock>
-                {{ dayjs(value.date).format("MMM DD, YYYY") }}
-              </p>
+            <div v-if="value.tags[0] != null" class="mt-4 flex items-center space-x-2">
+              <Badge v-for="tag in value.tags" :key="tag.name" :value="tag.name" :color="tag.color"></Badge>
+            </div>
+            <div class="mt-2 cursor-pointer">
+              <div class="ql-editor px-0" v-html="value.story"></div>
+              <img v-if="value.image" class="w-full rounded-xl" :src="value.image" alt="" />
             </div>
           </div>
-          <div v-if="value.tags[0] != null" class="mt-4 flex items-center space-x-2">
-            <Badge v-for="tag in value.tags" :key="tag.name" :value="tag.name" :color="tag.color"></Badge>
-          </div>
-          <div class="mt-2 cursor-pointer">
-            <div class="ql-editor px-0" v-html="value.story"></div>
-            <img v-if="value.image" class="w-full rounded-xl" :src="value.image" alt="" />
-          </div>
-        </button>
+        </router-link>
       </div>
       <div v-else class="w-full flex justify-center mt-12">
         <p class="w-80 text-center text-gray-400">No story from the users you followed yet...</p>

@@ -7,7 +7,7 @@
             <img :src="userData.avatar_url" class="w-full h-full object-cover" />
           </div>
           <div v-if="isCurrentUser">
-            <button @click="$router.push({ name: 'settings' })" class="btn btn-white">Settings</button>
+            <router-link :to="{ name: 'settings' }" class="btn btn-white">Settings</router-link>
           </div>
           <div v-else>
             <button v-if="!isFollowing" @click="followUser" class="btn btn-white">Follow</button>

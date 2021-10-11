@@ -15,6 +15,7 @@ declare module 'vue' {
     'IMdi:clock': typeof import('~icons/mdi/clock')['default']
     'IMdi:cog': typeof import('~icons/mdi/cog')['default']
     'IMdi:filterOff': typeof import('~icons/mdi/filter-off')['default']
+    'IMdi:github': typeof import('~icons/mdi/github')['default']
     'IMdi:google': typeof import('~icons/mdi/google')['default']
     'IMdi:image': typeof import('~icons/mdi/image')['default']
     'IMdi:logoutVariant': typeof import('~icons/mdi/logout-variant')['default']

@@ -8,7 +8,7 @@
         <p class="px-2 text-center">Twitter-liked platform without toxic and negativity</p>
         <p>—</p>
       </div>
-      <button @click="$router.push({ name: 'login' })" class="btn my-4">Join now</button>
+      <router-link :to="{ name: 'login' }" class="btn my-4">Join now</router-link>
       <img
         class="max-w-screen-md w-full mt-8 md:mt-18 rounded-2xl border-4 border-blue-700 shadow-2xl shadow-blue-700"
         :src="Intro"
@@ -24,7 +24,7 @@
       <div class="flex flex-col md:flex-row mt-8">
         <div class="w-full lg:w-96 h-full bg-blue-700 p-8 rounded-2xl mb-4 md:mb-0 md:mr-4">
           <h3 class="text-white font-bold text-2xl md:text-3xl">Create Story</h3>
-          <ul class="mt-4 text-white">
+          <ul class="my-4 text-white">
             <li class="flex items-start py-1">
               <i-mdi:check class="mr-2 flex-shrink-0 mt-0.5"></i-mdi:check>
               Showcase your work
@@ -42,11 +42,11 @@
               Editable timeline
             </li>
           </ul>
-          <button @click="$router.push({ name: 'login' })" class="btn btn-white mt-4">Join us</button>
+          <router-link :to="{ name: 'login' }" class="btn btn-white">Join us</router-link>
         </div>
         <div class="w-full lg:w-96 h-full bg-opacity-50 bg-blue-200 p-8 rounded-2xl">
           <h3 class="text-blue-700 font-bold text-2xl md:text-3xl">Follow</h3>
-          <ul class="mt-4 text-blue-900">
+          <ul class="my-4 text-blue-900">
             <li class="flex items-start py-1">
               <i-mdi:check class="mr-2 flex-shrink-0 mt-0.5"></i-mdi:check>
               Follow your creator
@@ -64,7 +64,7 @@
               Get notified with new content (soon)
             </li>
           </ul>
-          <button @click="$router.push({ name: 'login' })" class="btn btn-white mt-4">Sign me up!</button>
+          <router-link :to="{ name: 'login' }" class="btn btn-white">Sign me up!</router-link>
         </div>
       </div>
     </div>
