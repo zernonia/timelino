@@ -48,12 +48,23 @@
         <div class="flex items-center my-2 flex-wrap">
           <OnClickOutside @trigger="isDropdownOpen = false">
             <div class="relative mb-2 mr-2">
-              <button @click="isDropdownOpen = !isDropdownOpen" class="btn btn-pale inline-flex items-center text-sm">
+              <button @click="isDropdownOpen = !isDropdownOpen" class="btn btn-pale inline-flex items-center !text-sm">
                 <i-mdi:plus class="mr-2"></i-mdi:plus> Add Tag
               </button>
               <div
                 v-if="isDropdownOpen"
-                class="bg-white absolute bottom-full mb-2 left-0 p-4 w-300px sm:max-w-608px rounded-md shadow-md"
+                class="
+                  bg-white
+                  absolute
+                  bottom-full
+                  mb-2
+                  left-0
+                  p-4
+                  w-300px
+                  sm:w-max sm:max-w-608px
+                  rounded-md
+                  shadow-md
+                "
               >
                 <ul class="flex flex-wrap">
                   <li v-for="tag in taggingList" :key="tag.name" class="w-max mb-2 mr-2">
@@ -61,7 +72,7 @@
                   </li>
                 </ul>
                 <div class="flex space-x-2">
-                  <input placeholder="Add new tag.." class="px-2 py-1 w-40" type="text" v-model="newTag.name" />
+                  <input placeholder="Add new tag.." class="px-2 py-1 w-40 text-sm" type="text" v-model="newTag.name" />
                   <VSwatches
                     class="flex"
                     :row-length="'3'"

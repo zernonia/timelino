@@ -20,16 +20,16 @@ textarea {
   @apply text-sm sm:text-base px-4 py-2 bg-gray-100 rounded-md ring ring-transparent transition focus:outline-transparent focus:ring-blue-400;
 }
 .btn {
-  @apply px-4 py-2 rounded-lg bg-blue-700 text-white text-sm sm:text-base font-semibold ring ring-transparent transition focus:outline-transparent focus:ring-blue-400 disabled:opacity-50;
+  @apply px-4 py-2 rounded-lg bg-blue-700 text-white text-sm sm:text-base font-semibold ring ring-transparent transition hover:bg-blue-800 focus:outline-transparent focus:ring-blue-400 disabled:opacity-50;
 }
 .btn-white {
-  @apply bg-white text-gray-700 border-1 hover:shadow;
+  @apply bg-white text-gray-700 border-1 hover:bg-white hover:shadow;
 }
 .btn-pale {
-  @apply text-blue-700 bg-blue-200 bg-opacity-50;
+  @apply text-blue-700 bg-blue-200 bg-opacity-50 hover:bg-blue-100;
 }
 .btn-warning {
-  @apply bg-red-500;
+  @apply bg-red-500 hover:bg-red-600 focus:ring-red-400;
 }
 .btn-helper {
   @apply p-2 inline-flex text-gray-400 transition hover:text-gray-500 focus:outline-transparent;
