@@ -79,6 +79,9 @@ const getData = async () => {
     const { data, error } = await supabase.from("profiles").select("*").eq("id", userState.user.id).single()
     if (!error) {
       form.value = data
+    } else {
+      form.value.avatar_url = userState.user.user_metadata.avatar_url
+      form.value.full_name = userState.user.user_metadata.full_name
     }
   }
 }
