@@ -10,7 +10,7 @@
           relative
           rounded-full
           overflow-hidden
-          border border-gray-300
+          border border-gray-200
           ring ring-transparent
           transition
           focus:outline-transparent focus:ring-blue-400

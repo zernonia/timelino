@@ -65,7 +65,7 @@
                 </div>
                 <div class="mt-2">
                   <div class="ql-editor px-0" v-html="item.story"></div>
-                  <img v-if="item.image" class="w-full rounded-xl" :src="item.image" alt="" />
+                  <img v-if="item.image" class="w-full rounded-xl border border-gray-200" :src="item.image" alt="" />
                 </div>
                 <div v-if="isCurrentUser" class="helper hidden items-center absolute top-0 right-0">
                   <button @click="buttonEdit(item.id)" class="btn-helper">
