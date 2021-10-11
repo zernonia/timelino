@@ -31,7 +31,7 @@
     <textarea name="introduction" id="introduction" rows="4" v-model="form.introduction"></textarea>
     <div class="error" v-if="errorText">* {{ errorText }}</div>
     <div class="flex space-x-2 justify-end mt-4">
-      <button class="btn btn-pale" v-if="$router.options.routes[0].path == '/u'" @click="router.back()">Back</button>
+      <!-- <button class="btn btn-pale" v-if="$router.options.routes[0].path == '/u'" @click="router.back()">Back</button> -->
       <button :disabled="isUploading" class="btn" @click="submit">Submit</button>
     </div>
   </div>
