@@ -44,7 +44,12 @@ const isDropdownOpen = ref(false)
 
 const notification = ref<any[]>([])
 const getNotification = async () => {
-  const { data, error } = await supabase.from("notifications").select("*").eq("target_id", userState.user?.id).limit(5)
+  const { data, error } = await supabase
+    .from("notifications")
+    .select("*")
+    .eq("target_id", userState.user?.id)
+    .limit(5)
+    .order("created_at", { ascending: false })
   if (data && data.length) notification.value = data
 }
 getNotification()

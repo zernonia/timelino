@@ -107,7 +107,7 @@ const getUserToFollow = async () => {
 
 const storyList = ref<Story[]>([])
 const getFollowingStory = async () => {
-  const { data, error } = await supabase.rpc<Story>("get_following_stories")
+  const { data, error } = await supabase.rpc<Story>("get_following_stories").order("created_at", { ascending: false })
   if (data) storyList.value = data
 }
 getUserToFollow()
