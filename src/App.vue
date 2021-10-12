@@ -51,6 +51,7 @@
           </transition>
         </div>
       </div>
+      <div v-else-if="userState.user?.id"></div>
       <div class="py-2" v-else>
         <button @click="$router.push({ name: 'login' })" class="btn">Login</button>
       </div>

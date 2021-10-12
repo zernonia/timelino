@@ -3,9 +3,16 @@
     <h1 class="text-3xl font-bold text-gray-900">Login</h1>
     <div class="flex flex-col w-76">
       <label for="email">Email</label>
-      <input class="w-full" type="email" name="email" id="email" v-model="form.email" />
+      <input placeholder="cute@bunny.com" class="w-full" type="email" name="email" id="email" v-model="form.email" />
       <label for="password">Password</label>
-      <input @keypress.enter="loginEmail" type="password" name="password" id="password" v-model="form.password" />
+      <input
+        placeholder="******"
+        @keypress.enter="loginEmail"
+        type="password"
+        name="password"
+        id="password"
+        v-model="form.password"
+      />
       <div class="grid grid-cols-2 mt-4 gap-2">
         <button @click="registerEmail" class="btn btn-pale">Register</button>
         <button @click="loginEmail" class="btn">Login</button>

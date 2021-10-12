@@ -24,11 +24,17 @@
       </button>
     </div>
     <label for="username">Username</label>
-    <input type="text" name="username" id="username" v-model="form.username" />
+    <input placeholder="cutebunny" type="text" name="username" id="username" v-model="form.username" />
     <label for="full_name">Full name</label>
-    <input type="text" name="full_name" id="full_name" v-model="form.full_name" />
+    <input placeholder="Cute Bunny" type="text" name="full_name" id="full_name" v-model="form.full_name" />
     <label for="introduction">Introduction</label>
-    <textarea name="introduction" id="introduction" rows="4" v-model="form.introduction"></textarea>
+    <textarea
+      placeholder="Tell us about you..."
+      name="introduction"
+      id="introduction"
+      rows="4"
+      v-model="form.introduction"
+    ></textarea>
     <div class="error" v-if="errorText">* {{ errorText }}</div>
     <div class="flex space-x-2 justify-end mt-4">
       <!-- <button class="btn btn-pale" v-if="$router.options.routes[0].path == '/u'" @click="router.back()">Back</button> -->
