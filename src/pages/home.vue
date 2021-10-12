@@ -30,7 +30,7 @@
             >
               <li class="flex items-center w-full">
                 <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
-                  <img :src="user.avatar_url" alt="" />
+                  <img class="w-full h-full object-cover" :src="user.avatar_url" alt="" />
                 </div>
                 <div class="ml-4 flex flex-col overflow-hidden">
                   <h5 class="text font-bold text-blue-700">{{ user.full_name }}</h5>
